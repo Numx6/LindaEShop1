@@ -28,5 +28,13 @@ namespace LindaEShop.Core.Services.Interfaces
 		List<int> GetSizeOfProduct(int productId);
 		bool CodeProductIsExist(string productCode);
 		#endregion
+
+		#region Product Gallary	
+
+		int AddGallary(IFormFile galleryImg,int productId);
+		List<ProductGallery> GetGallaryProduct(int productId);
+		void DeleletFromGallary(int gallaryId);
+
+		#endregion
 	}
 }

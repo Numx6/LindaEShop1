@@ -1,0 +1,69 @@
+﻿@page "{id}"
+@model LindaEShop.Pages.Admin.Products.AddToGallaryModel
+@using LindaEShop.DataLayer.Entities
+@{
+	List<ProductGallery> Gallery = ViewData["gallariImg"] as List<ProductGallery>;
+}
+<h2>
+	Add To Gallary
+</h2>
+<div class="row">
+	<form method="post" enctype="multipart/form-data">
+		<input type="hidden" name="productId" value="id" />
+		<div class="col-md-4">
+			<div class="panel panel-primary">
+				<div class="panel-heading">تصویر اصلی</div>
+				<div class="panel-body">
+					<p></p>
+					<img id="imgProductGallary" class="thumbnail" src="/Images/ProductGallary/Defult.jpg" />
+					<div class="form-group">
+						<label>انتخاب تصویر</label>
+						<input type="file" name="imgUp" id="imgUp">
+					</div>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<input type="submit" value="ذخیره اطلاعات" class="btn btn-success" />
+				<a asp-page="index">برگشت به لیست</a>
+			</div>
+		</div>
+	</form>
+
+	<div class="col-md-8">
+		<div class="panel panel-primary">
+			@if (Gallery.Any())
+			{
+				foreach (var item in Gallery)
+				{
+					<div class="col-md-6">
+						<img class="thumbnail" src="/Images/ProductGallary/@item.ImageName" />
+						<form method="post">
+							<input type="hidden" name="deleteId" value="@item.GalleryId" />
+							<input type="submit" value="حذف" class="btn btn-danger btn-block" />
+						</form>
+						<hr />
+					</div>
+				}
+			}
+		</div>
+	</div>
+</div>
+
+
+@section Scripts
+{
+	<script>
+		function readURL(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+				reader.onload = function (e) {
+					$('#imgProductGallary').attr('src', e.target.result);
+				}
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
+		$("#imgUp").change(function () {
+			readURL(this);
+		});
+	</script>
+}

@@ -25,6 +25,34 @@ namespace LindaEShop.Core.Services
 			_context = context;
 		}
 
+		public int AddGallary(IFormFile galleryImg, int productId)
+		{
+			ProductGallery productGallery = new ProductGallery();
+			productGallery.CreatDate = DateTime.Now;
+			productGallery.ImageName = "no-photo.jpg";
+			productGallery.ProductId = productId;
+
+			if (galleryImg != null && galleryImg.IsImage())
+			{
+				productGallery.ImageName = NameGenerator.GenerateUniqCode() + Path.GetExtension(galleryImg.FileName);
+				string imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/ProductGallary", productGallery.ImageName);
+
+				using (var stream = new FileStream(imagePath, FileMode.Create))
+				{
+					galleryImg.CopyTo(stream);
+				}
+
+				ImageConvertor imgResizer = new ImageConvertor();
+				string thumbPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/ProductGallary/thumb", productGallery.ImageName);
+
+				imgResizer.Image_resize(imagePath, thumbPath, 250);
+			}
+			_context.productGalleries.Add(productGallery);
+			_context.SaveChanges();
+
+			return productGallery.GalleryId;
+		}
+
 		public int AddProduct(Product product, IFormFile imgUp, List<int> selectedColor, List<int> selectedSize)
 		{
 			product.CreatDate = DateTime.Now;
@@ -81,6 +109,30 @@ namespace LindaEShop.Core.Services
 		public bool CodeProductIsExist(string productCode)
 		{
 			return _context.Products.Any(u => u.ProductCode == productCode);
+		}
+
+		public void DeleletFromGallary(int gallaryId)
+		{
+			if (gallaryId != 0)
+			{
+				var img = _context.productGalleries.Find(gallaryId);
+				if (img.ImageName != "no-photo.jpg")
+				{
+					string deleteimagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/ProductGallary", img.ImageName);
+					if (File.Exists(deleteimagePath))
+					{
+						File.Delete(deleteimagePath);
+					}
+
+					string deletethumbPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/ProductGallary/thumb", img.ImageName);
+					if (File.Exists(deletethumbPath))
+					{
+						File.Delete(deletethumbPath);
+					}
+				}
+				_context.productGalleries.Remove(img);
+				_context.SaveChanges();
+			}
 		}
 
 		public void EditProduct(Product product, IFormFile imgUp, List<int> selectedColor, List<int> selectedSize)
@@ -224,10 +276,10 @@ namespace LindaEShop.Core.Services
 			int pageCount = result.Count();
 			pageCount = pageCount / take;
 
-			var query= result.Include(c => c.ColorToProducts).Include(c => c.SizeToProducts)
+			var query = result.Include(c => c.ColorToProducts).Include(c => c.SizeToProducts)
 				.Include(c => c.ProductGroup).Select(c => new ShowProductListItemViewModel()
 				{
-					Id=c.Id,
+					Id = c.Id,
 					ImageName = c.ImageName,
 					IsActive = c.IsActive,
 					Name = c.Name,
@@ -235,7 +287,7 @@ namespace LindaEShop.Core.Services
 					ProductCode = c.ProductCode,
 				}).Skip(skip).Take(take).ToList();
 
-			return Tuple.Create(query,pageCount);
+			return Tuple.Create(query, pageCount);
 		}
 
 		public List<ProductGroup> GetAllproductGroups()
@@ -261,6 +313,11 @@ namespace LindaEShop.Core.Services
 		public List<int> GetColorOfProduct(int productId)
 		{
 			return _context.ColorToProducts.Where(w => w.ProductId == productId).Select(s => s.ColorId).ToList();
+		}
+
+		public List<ProductGallery> GetGallaryProduct(int productId)
+		{
+			return _context.productGalleries.Where(p => p.ProductId == productId).ToList();
 		}
 
 		public Product GetProductyId(int id)
