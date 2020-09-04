@@ -1,0 +1,45 @@
+﻿@page
+@model LindaEShop.Pages.Admin.Users.IndexModel
+@{
+}
+
+<div class="col-sm-12">
+	<section class="panel">
+		<header class="panel-heading">
+			<a href="" class="btn btn-outline btn-success">افزودن کاربر جدید</a>
+		</header>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<td>Id</td>
+					<th>نام</th>
+					<th>تلفن</th>
+					<th>وضعیت</th>
+					<th>نقش</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var item in Model.Users)
+				{
+					<tr>
+						<td>@item.UserId</td>
+						<td>@item.Name</td>
+						<td>@item.Number</td>
+						<td>
+						<td>
+							@if (item.IsActive)
+							{
+								<span>فعال<i class="icon-ok"></i></span>
+							}
+							else
+							{
+								<span>غیر فعال</span>
+							}
+						</td>
+						<td>@item.RoleId</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</section>
+</div>

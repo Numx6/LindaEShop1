@@ -1,0 +1,44 @@
+﻿@model LindaEShop.Core.DTOs.LogInViewModel
+@{
+	ViewData["Title"] = "ورود کاربران";
+}
+<partial name="_Slider" />
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="title-section margin_bottom_17">
+				<h2 class="form-signin-heading">همین حالا وارد شوید</h2>
+			</div><!-- /.title-section -->
+		</div><!-- /.col-md-12 -->
+	</div><!-- /.row -->
+	<div class="row">
+		<div class="wrap-contact">
+			<form novalidate class="contact-form" method="post" asp-action="LogIn">
+				<div class="form-text-wrap clearfix">
+					<div class="contact-email">
+						<label asp-for="Number"></label>
+						<input asp-for="Number" type="text" autofocus>
+						<span asp-validation-for="Number" class="text-danger"></span>
+					</div>
+					<div class="contact-subject">
+						<label asp-for="Password"></label>
+						<input asp-for="Password" type="password">
+						<span asp-validation-for="Password" class="text-danger"></span>
+					</div>
+					<div class="contact-subject">
+						<label asp-for="RememberMe"></label>
+						<input type="checkbox" asp-for="RememberMe" >
+					</div>
+
+				</div>
+				<div class="form-submit margin-top-32 ">
+					<span> <a href="/ForgotPassword">  کلمه عبور را فراموش کرده اید؟ کلیک کنید .</a></span>
+					<br />
+					<hr />
+					<button class="btn btn-lg btn-login btn-block" type="submit">ورود</button>
+				</div>
+			</form>
+		</div><!-- /.wrap-contact -->
+	</div><!-- /.row -->
+</div><!-- /.container -->
+

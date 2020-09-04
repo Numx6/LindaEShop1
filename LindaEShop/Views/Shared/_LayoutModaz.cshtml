@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<!--[if IE 8 ]><html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+<head>
+	<!-- Basic Page Needs -->
+	<title>@ViewData["Title"] - فروشگاه لیندا</title>
+	<partial name="_Stylesheet" />
+
+	<!--[if lt IE 9]>
+		<script src="javascript/html5shiv.js"></script>
+		<script src="javascript/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body class="header_sticky header-style-1 has-menu-extra">
+	<!-- Preloader -->
+	<div id="loading-overlay">
+		<div class="loader"></div>
+	</div>
+
+	<!-- Boxed -->
+	<div class="boxed">
+		<div id="site-header-wrap">
+			<!-- Header -->
+			<partial name="_Header" />
+			<!-- /header -->
+		</div><!-- /#site-header-wrap -->
+
+		@RenderBody()
+
+		<!-- Footer -->
+		<partial name="_Footer" />
+		<!--end Footer -->
+
+	</div>
+
+	<!-- Javascript -->
+<partial name="_JavaScripts" />
+</body>
+</html>
+                             

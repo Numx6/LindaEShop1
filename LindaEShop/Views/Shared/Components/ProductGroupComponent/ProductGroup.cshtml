@@ -1,0 +1,17 @@
+﻿@model IEnumerable<LindaEShop.DataLayer.Entities.ProductGroup>
+
+
+
+<li class="active" >
+	<a href="/">صفحه اصلی</a>
+</li>
+
+@foreach (var item in Model)
+{
+
+	<li>
+		<a href="/Product?selectedGroup=@item.Id">@item.Title</a>
+	</li>
+}
+
+

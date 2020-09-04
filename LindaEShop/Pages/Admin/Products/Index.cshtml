@@ -1,0 +1,84 @@
+﻿@page
+@model LindaEShop.Pages.Admin.Products.IndexModel
+@{
+	ViewData["Title"] = "لیست محصولات";
+}
+<div class="col-sm-12">
+	<section class="panel">
+		<header class="panel-heading">
+			<div class="row">
+				<form>
+					<div class="col-sm-5 col-md-5">
+						<input type="text" name="nameFilter" class="form-control" placeholder="نام محصول" />
+					</div>
+					<div class="col-sm-5 col-md-5">
+						<input type="text" name="codeFilter" class="form-control" placeholder="کد محصول" />
+					</div>
+					<div class="col-sm-2 col-md-2">
+						<button type="submit" class="btn btn-info">بگرد</button>
+						<a class="btn btn-default btn-sm " href="/Admin/Products">خالی</a>
+					</div>
+				</form>
+			</div>
+			<hr />
+			<a asp-page="AddProduct" class="btn btn-outline btn-success">افزودن محصول جدید</a>
+		</header>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<td>تصویر</td>
+					<th>کد محصول</th>
+					<th>نام</th>
+					<th>قیمت</th>
+					<th>بازدید</th>
+					<th>وضعیت</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var item in Model.IndexProduct.Products)
+				{
+					<tr>
+						<td style="width:100px">
+							<img src="/Images/Product/Thumb/@item.ImageName" class="thumbnail" />
+						</td>
+						<td>@item.ProductCode</td>
+						<td>@item.Name</td>
+						<td>@item.Price.ToString("#,0")</td>
+						<td>@item.Visit</td>
+						<td>
+							@if (item.IsActive)
+							{
+								<span>موجود<i class="icon-ok"></i></span>
+							}
+							else
+							{
+								<span>ناموجود<i class="icon-off"></i></span>
+							}
+						</td>
+						<td>
+							<a class="btn btn-primary" href="/Order/BuyProduct/@item.Id">افزودن به سبد خرید</a>
+							<a class="btn btn-success" href="/Admin/Products">نمایش</a>
+							<a class="btn btn-warning" href="/Admin/Products/EtitProduct/@item.Id">ویرایش</a>
+							<a class="btn btn-danger" href="/Admin/Products">حذف</a>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+		<div class="col-sm-6">
+			<div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
+				<ul class="pagination">
+
+					@for (int i = 1; i <= Model.IndexProduct.PageCount; i++)
+					{
+						<li class="paginate_button @((i==Model.IndexProduct.CurrentPage)?"active":"")" aria-controls="dataTables-example" tabindex="0">
+							<a href="/Admin/Products?PageId=@i">@i</a>
+						</li>
+					}
+
+				</ul>
+			</div>
+		</div>
+	</section>
+</div>

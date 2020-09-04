@@ -1,0 +1,81 @@
+﻿<header id="header" class="header header-container clearfix">
+	<div class="container clearfix" id="site-header-inner">
+		<div id="logo" class="logo float-right">
+			<a href="/" title="logo">
+				<img src="/Modaz/images/logo.png" alt="image" width="107" height="24" data-retina="/Modaz/images/logo@2x.png" data-width="107" data-height="24">
+			</a>
+		</div><!-- /.logo -->
+		<div class="mobile-button"><span></span></div>
+		<ul class="menu-extra">
+			<li class="box-search">
+				<a class="icon_search header-search-icon" href="#"></a>
+				<form role="search" method="get" class="header-search-form" action="#">
+					<input type="text" value="" name="s" class="header-search-field" placeholder="جستجو...">
+					<button type="submit" class="header-search-submit" title="Search">جستجو</button>
+				</form>
+			</li>
+			<li class="box-login">
+				<a class="icon_login" href="#"></a>
+			</li>
+
+			<li class="box-cart nav-top-cart-wrapper">
+				<a class="icon_cart nav-cart-trigger active" href="#"><span>3</span></a>
+				<div class="nav-shop-cart">
+					<div class="widget_shopping_cart_content">
+						<div class="woocommerce-min-cart-wrap">
+							<ul class="woocommerce-mini-cart cart_list product_list_widget ">
+								<li class="woocommerce-mini-cart-item mini_cart_item">
+									<span>سبد خرید خالی است</span>
+								</li>
+							</ul>
+						</div><!-- /.widget_shopping_cart_content -->
+					</div>
+				</div><!-- /.nav-shop-cart -->
+			</li>
+		</ul><!-- /.menu-extra -->
+		<div class="nav-wrap">
+			<nav id="mainnav" class="mainnav">
+				<ul class="menu">
+
+					@await Component.InvokeAsync("ProductGroupComponent")
+
+					<li class="hidden-md-up">
+						@if (User.Identity.IsAuthenticated)
+						{
+
+							<a href="/UserPanel" class="btn btn-block"> @User.Identity.Name ، خوش آمدید </a>
+							<a href="#" class="btn btn-block">پنل کاربری</a>
+							<a href="/Logout" class="btn btn-block">خروج</a>
+						}
+						else
+						{
+							<a href="/Login" class="btn btn-block"> ورود </a>
+							<a href="/Register" class="btn btn-block"> عضویت </a>
+						}
+					</li>
+					<li class="hidden-sm-down">
+						<a href="#">کاربران</a>
+						<ul class="submenu right-submenu">
+							@if (User.Identity.IsAuthenticated)
+							{
+								<li>
+									<a href="/UserPanel"> @User.Identity.Name ، خوش آمدید </a>
+									<a href="#">پنل کاربری</a>
+									<a href="/Logout">خروج</a>
+								</li>
+							}
+							else
+							{
+								<li>
+									<a href="/Login"> ورود </a>
+									<a href="/Register"> عضویت </a>
+								</li>
+							}
+						</ul>
+					</li>
+
+				</ul>
+			</nav><!-- /.mainnav -->
+		</div><!-- /.nav-wrap -->
+	</div><!-- /.container-fluid -->
+</header>

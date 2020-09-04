@@ -1,0 +1,111 @@
+﻿@model IEnumerable<LindaEShop.Core.DTOs.ShowProductListItemViewModel>
+@{
+	ViewData["Title"] = "فروشگاه";
+	Layout = "ShopLayoutModas";
+	var pageCount = ViewBag.PageCount;
+}
+<section class="flat-row main-shop shop-4col">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="filter-shop bottom_68 clearfix">
+					<ul class="flat-filter-search">
+						<li>
+							<a href="#" class="show-filter">فیلترها</a>
+						</li>
+						<li>
+							<a href="/Product">بدون فیلتر</a>
+						</li>
+						<li class="search-product">
+							<a href="#">جستجو</a>
+						</li>
+					</ul>
+				</div><!-- /.filte-shop -->
+				<div class="box-filter slidebar-shop clearfix">
+					<form href="Product" method="get">
+						<div class="btn-close"><a href="#"><i class="fa fa-times"></i></a></div>
+						<div class="widget widget-sort-by">
+							<h5 class="widget-title">
+								مرتب سازی
+							</h5>
+							<ul>
+								<li><input type="radio" name="orderBy" value="p" />پیشفرض</li>
+								<li><input type="radio" name="orderBy" value="n" />جدیدترین</li>
+								<li><input type="radio" name="orderBy" value="m" />محبوبیت</li>
+							</ul>
+						</div><!-- /.widget-sort-by -->
+						<div class="widget widget-price">
+							<h5 class="widget-title">محدوده قیمت</h5>
+							<ul>
+								<li><input type="number" name="startPrice" placeholder="کمترین قیمت" /> </li>
+								<li><input type="number" name="endPrice" placeholder="بیشترین قیمت" /></li>
+							</ul>
+						</div><!-- /.widget -->
+						<div class="widget widget-color">
+							<h5 class="widget-title">
+								رنگ
+							</h5>
+							<ul class="flat-color-list icon-left">
+								<li><span>زرد</span></li>
+								<li><span>سفید</span></li>
+								<li><span>قرمز</span> </li>
+							</ul>
+						</div><!-- /.widget-color -->
+						<div class="widget widget-size">
+							<h5 class="widget-title">سایز</h5>
+							<ul>
+								<li><a href="#">L</a></li>
+								<li><a href="#">M</a></li>
+								<li><a href="#">S</a></li>
+								<li><a href="#">XL</a></li>
+							</ul>
+						</div><!-- /.widget -->
+						<div class="widget widget_tag">
+							<h5 class="widget-title">
+								برچسب ها
+							</h5>
+							<div class="tag-list">
+								<a href="#">همه محصولات</a>
+								<a href="#" class="active">کیف</a>
+								<a href="#">صندلی</a>
+								<a href="#">دکوراسیون</a>
+								<a href="#">فشن</a>
+								<a href="#">کراوات</a>
+							</div>
+						</div><!-- /.widget -->
+						<input type="submit" class="btn btn-lg" value="اعمال فیلتر" />
+					</form>
+				</div><!-- /.box-filter -->
+				<div class="shop-search clearfix">
+					<form role="search" method="get" class="search-form" href="/Product">
+						<label>
+							<input type="search" class="search-field" placeholder="جستجو..." name="filter">
+						</label>
+					</form>
+				</div><!-- /.top-serach -->
+				<div class="product-content product-fourcolumn clearfix">
+					<ul class="product style2">
+						@foreach (var item in Model)
+						{
+							<partial name="_BoxProduct" model="@item" />
+						}
+					</ul><!-- /.product -->
+				</div><!-- /.product-content -->
+				@{
+					@*if (pageCount >= 1)
+					{
+						<div class="product-pagination text-center margin-top-11 clearfix">
+							<ul class="flat-pagination">
+								@for (int i = 1; i < pageCount ; i++)
+								{
+									<li><a href="/Product?pageId=@i" >@i</a></li>
+								}
+							</ul> /.flat-pagination 
+						</div>
+					}*@
+				}
+
+			</div><!-- /.col-md-12 -->
+		</div><!-- /.row -->
+	</div><!-- /.container -->
+</section><!-- /.flat-row -->

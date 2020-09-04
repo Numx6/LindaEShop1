@@ -1,0 +1,120 @@
+﻿@page
+@model LindaEShop.Pages.Admin.Products.AddProductModel
+@using LindaEShop.DataLayer.Entities
+
+@{
+	ViewData["Title"] = "افزودن محصول جدید";
+
+	List<Color> colors = ViewData["Color"] as List<Color>;
+	List<Size> sizes = ViewData["Size"] as List<Size>;
+}
+
+<div class="row">
+	<form method="post" enctype="multipart/form-data">
+		<div class="col-md-8">
+			<div class="panel panel-primary">
+				<div class="panel-heading">افزودن محصول</div>
+				<div class="panel-body">
+					<div class="form-group">
+						<label>عنوان محصول</label>
+						<input type="text" asp-for="Product.Name" class="form-control">
+						<span asp-validation-for="Product.Name"></span>
+					</div>
+					<div class="form-group">
+						<label>کد محصول</label>
+						<input type="text" asp-for="Product.ProductCode" class="form-control">
+						<span asp-validation-for="Product.ProductCode"></span>
+					</div>
+					<div class="form-group">
+						<label>گروه محصول</label>
+						<select class="form-control " asp-for="Product.ProductGroupId" asp-items="@(ViewData["Groups"] as SelectList)"></select>
+						<span asp-validation-for="Product.ProductGroup"></span>
+					</div>
+
+					<div class="form-group">
+						<label>توضیح کوتاه</label>
+						<textarea class="form-control" asp-for="Product.ShortDescription" rows="2"></textarea>
+						<span asp-validation-for="Product.ShortDescription"></span>
+					</div>
+					<div class="form-group">
+						<label>توضیح محصول</label>
+						<textarea class="form-control" asp-for="Product.Description" rows="5"></textarea>
+						<span asp-validation-for="Product.Description"></span>
+					</div>
+					<div class="form-group">
+						<label>قیمت </label>
+						<input type="number" asp-for="Product.Price" value="0" class="form-control" />
+						<span asp-validation-for="Product.Price"></span>
+					</div>
+					<input type="submit" value="ذخیره اطلاعات" class="btn btn-success" />
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="panel panel-primary">
+				<div class="panel-heading">تصویر اصلی</div>
+				<div class="panel-body">
+					<p></p>
+					<img id="imgProduct" class="thumbnail" src="/Images/Product/Defult.jpg" />
+					<div class="form-group">
+						<label>انتخاب تصویر</label>
+						<input type="file" name="imgUp" id="imgUp">
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-primary">
+				<div class="panel-heading">رنگ و سایز</div>
+				<div class="panel-body">
+					<div class="form-group">
+						<label>سایز </label>
+						<ul>
+							@foreach (var itemsize in sizes)
+							{
+							<li>
+								<input type="checkbox" name="SelectedSize" value="@itemsize.SizeId" />  @itemsize.SizeProduct
+							</li>
+							}
+						</ul>
+					</div>
+
+					<div class="form-group">
+						<label>رنگ </label>
+						<ul>
+							@foreach (var itemcolor in colors)
+							{
+								<li>
+									<input type="checkbox" name="SelectedColor" value="@itemcolor.ColorId" />  @itemcolor.ColorName
+								</li>
+							}
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+
+@section Scripts
+{
+<script>
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function (e) {
+				$('#imgProduct').attr('src', e.target.result);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+	$("#imgUp").change(function () {
+		readURL(this);
+	});
+</script>
+<script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+	<script>
+		CKEDITOR.replace('Product_Description', {
+			customConfig: '/js/Config.js'
+		});
+	</script>
+}

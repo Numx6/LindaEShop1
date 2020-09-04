@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+
+<head>
+	<meta charset="utf-8">
+	<title>@ViewData["Title"] - فروشگاه لیندا</title>
+	<partial name="_StylesheetShop" />
+</head>
+<body class="header_sticky header-style-2 has-menu-extra">
+	<!-- Preloader -->
+	<div id="loading-overlay">
+		<div class="loader"></div>
+	</div>
+
+	<!-- Boxed -->
+	<div class="boxed">
+
+		<partial name="_HeaderShop" />
+		@RenderBody()
+		<partial name="_MailChimp" />
+		<!-- Footer -->
+		<partial name="_Footer" />
+	</div>
+	<!-- Javascript -->
+	<partial name="_JavaScriptsShop" />	
+</body>
+</html>
