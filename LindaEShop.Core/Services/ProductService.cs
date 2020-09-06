@@ -18,7 +18,6 @@ namespace LindaEShop.Core.Services
 {
 	public class ProductService : IProduct
 	{
-
 		private LindaContext _context;
 		public ProductService(LindaContext context)
 		{
@@ -224,7 +223,7 @@ namespace LindaEShop.Core.Services
 			{
 				CurrentPage = pageId,
 				PageCount = result.Count() / take,
-				Products = result.OrderBy(u => u.CreatDate).Skip(skip).Take(take).ToList()
+				Products = result.OrderBy(u => u.CreatDate).Skip(skip).Take(take).OrderByDescending(c=>c.CreatDate).ToList()
 			};
 
 			return item;
@@ -317,7 +316,14 @@ namespace LindaEShop.Core.Services
 
 		public List<ProductGallery> GetGallaryProduct(int productId)
 		{
-			return _context.productGalleries.Where(p => p.ProductId == productId).ToList();
+			return _context.productGalleries.Where(p => p.ProductId == productId).OrderByDescending(c=>c.CreatDate).ToList();
+		}
+
+		public Product GetProductForShow(int productId)
+		{
+			return _context.Products.Include(c => c.ColorToProducts)
+				.Include(c => c.SizeToProducts).Include(c => c.ProductGalleries)
+				.FirstOrDefault(c => c.Id == productId);
 		}
 
 		public Product GetProductyId(int id)

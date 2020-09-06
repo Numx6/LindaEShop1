@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using LindaEShop.Core.DTOs;
 using LindaEShop.Core.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace LindaEShop.Controllers
 {
@@ -21,11 +24,11 @@ namespace LindaEShop.Controllers
 		}
 
 		[Authorize]
-		public IActionResult BuyProduct(int id)
+		public IActionResult BuyProduct(int productId, int sizeId, int colorId, int quantityNumber)
 		{
-			string userNumber = User.Identity.Name;
-			_orderService.AddOrder(id,userNumber);
-			return Redirect("/Admin/Products");
+			string userNumber = User.FindFirst(ClaimTypes.Email)?.Value;
+			_orderService.AddOrder(productId, userNumber, sizeId, colorId, quantityNumber);
+			return RedirectToAction("ShowProduct","Product",new { id=productId});
 		}
 
 	}

@@ -1,3 +1,9 @@
 ﻿.img-BoxProduct{
 	max-height:250px;
 }
+.colorBtn{
+	color:white !important;
+}
+.colorSpanValid {
+	color:red;
+}

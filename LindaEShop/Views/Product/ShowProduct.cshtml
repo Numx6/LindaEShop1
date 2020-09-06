@@ -1,6 +1,10 @@
-﻿@{
-	ViewData["Title"] = "محصول";
+﻿@model LindaEShop.Core.DTOs.BuyProductViewModel
+@{
+	ViewData["Title"] = Model.Product.Name;
 	Layout = "_LayoutShowProduct";
+
+	List<LindaEShop.DataLayer.Entities.Color> colors = ViewData["colors"] as List<LindaEShop.DataLayer.Entities.Color>;
+	List<LindaEShop.DataLayer.Entities.Size> sizes = ViewData["sizes"] as List<LindaEShop.DataLayer.Entities.Size>;
 }
 
 <div class="boxed">
@@ -10,13 +14,12 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="page-title-heading">
-						<h1 class="title">کاپشن ورزشی</h1>
+						<h1 class="title">@Model.Product.Name</h1>
 					</div><!-- /.page-title-heading -->
 					<div class="breadcrumbs">
 						<ul>
-							<li><a href="index.html">خانه</a></li>
-							<li><a href="shop-3col.html">فروشگاه</a></li>
-							<li><a href="shop-detail-fix.html">محصولات</a></li>
+							<li><a href="/">خانه</a></li>
+							<li><a href="/product">فروشگاه</a></li>
 						</ul>
 					</div><!-- /.breadcrumbs -->
 				</div><!-- /.col-md-12 -->
@@ -32,17 +35,14 @@
 						<div class="inner padding-top-4">
 							<ul class="product-list-fix-image">
 								<li>
-									<img src="images/shop/sh-detail/detail-03.jpg" alt="Image">
+									<img src="/Images/Product/@Model.Product.ImageName" alt="@Model.Product.Name">
 								</li>
-								<li>
-									<img src="images/shop/sh-detail/detail-04.jpg" alt="Image">
-								</li>
-								<li>
-									<img src="images/shop/sh-detail/detail-05.jpg" alt="Image">
-								</li>
-								<li>
-									<img src="images/shop/sh-detail/detail-06.jpg" alt="Image">
-								</li>
+								@foreach (var item in Model.Product.ProductGalleries)
+								{
+									<li>
+										<img src="/Images/ProductGallary/@item.ImageName" alt="@Model.Product.Name">
+									</li>
+								}
 							</ul>
 						</div>
 					</div>
@@ -53,51 +53,81 @@
 					<div class="product-detail">
 						<div class="inner">
 							<div class="content-detail">
-								<h2 class="product-title">بهترین کاپشن ورزشی</h2>
+								<h2 class="product-title">@Model.Product.Name</h2>
 								<div class="flat-star style-1">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
 									<i class="fa fa-star-half-o"></i>
-									<i class="fa fa-star-half-o"></i>
-									<span>(1)</span>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
 								</div>
-								<p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.</p>
+								<p>@Model.Product.ShortDescription</p>
 								<div class="price margin-top-24">
-									<del><span class="regular">520,000 تومان</span></del>
-									<ins><span class="amount">470,000 تومان</span></ins>
+									@*<del><span class="regular">520,000 تومان</span></del>*@
+									<ins><span class="amount">@Model.Product.Price.ToString("#,0") تومان</span></ins>
 								</div>
-								<ul class="product-infor style-1">
-									<li><span>100% کتان</span></li>
-									<li><span>6 ماه ضمانت</span></li>
-									<li><span>ارسال رایگان</span></li>
-									<li><span>کیفیت عالی</span></li>
-								</ul>
+								@*<ul class="product-infor style-1">
+										<li><span>100% کتان</span></li>
+										<li><span>6 ماه ضمانت</span></li>
+										<li><span>ارسال رایگان</span></li>
+										<li><span>کیفیت عالی</span></li>
+									</ul>*@
+								<p>@Html.Raw(Model.Product.Description)</p>
+								<br />
 								<div class="product-categories margin-top-22">
 									<span>دسته بندی: </span><a href="#">آقایان,</a> <a href="#">کفش</a>
 								</div>
 								<div class="product-tags">
-									<span>برچسب: </span><a href="#">پوشاک,</a> <a href="#">فشن,</a> <a href="#">ورزشی,</a> <a href="#">کاپشن</a>
+									<span>برچسب: </span><a href="#">پوشاک,</a> <a href="#">فشن,</a><a href="#">زنانه,</a>
 								</div>
-								<div class="product-quantity margin-top-35">
-									<div class="quantity">
-										<input type="text" value="1" name="quantity-number" class="quantity-number">
-										<span class="inc quantity-button">+</span>
-										<span class="dec quantity-button">-</span>
+								<br />
+								<br />
+								<form action="ShowProduct" method="post">
+									<input type="hidden" name="productId" value="@Model.Product.Id" />
+									<div>
+										<span>
+											سایز های موجود (لطفا سایز مورد نظر را انتخاب کنید)
+										</span>
+										<ul>
+											@foreach (var item in Model.Product.SizeToProducts)
+											{
+												<li><input type="radio" asp-for="SizeId" value="@item.SizeId" /> - @sizes.FirstOrDefault(c => c.SizeId == item.SizeId).SizeProduct</li>
+											}
+										</ul>
+										<span asp-validation-for="SizeId" class="colorSpanValid"></span>
 									</div>
-									<div class="add-to-cart">
-										<a href="#">افزودن به سبدخرید</a>
+									<div>
+										<span>
+											رنگ های موجود (لطفا رنگ مورد نظر را انتخاب کنید)
+										</span>
+										<ul>
+											@{
+
+											}
+											@foreach (var item in Model.Product.ColorToProducts)
+											{
+												<li><input type="radio" asp-for="ColorId" value="@item.ColorId" /> - @colors.FirstOrDefault(c => c.ColorId == item.ColorId).ColorName</li>
+											}
+										</ul>
+										<span asp-validation-for="ColorId" class="colorSpanValid"></span>
 									</div>
-									<div class="box-like">
-										<a href="#" class="like"><i class="fa fa-heart-o"></i></a>
+
+									<div class="product-quantity margin-top-35">
+										<div class="quantity">
+											<input type="text" value="1" asp-for="quantityNumber" class="quantity-number">
+											<span class="inc quantity-button">+</span>
+											<span class="dec quantity-button">-</span>
+										</div>
+										<span asp-validation-for="quantityNumber" class="colorSpanValid"></span>
+										<div class="add-to-cart">
+
+											<input type="submit" class="btn btn-lg colorBtn" value="افزودن به سبدخرید" />
+										</div>
 									</div>
-								</div>
+								</form>
 								<ul class="flat-socials margin-top-46">
-									<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-									<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-									<li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-									<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-									<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+									<li><a href="https://t.me/modernunderwear">تلگرام</a></li>
+									<li><a href="https://www.instagram.com/indaunder/"><i class="fa fa-instagram"></i>اینستاگرام</a></li>
 								</ul>
 							</div>
 						</div>
@@ -124,13 +154,13 @@
 										<div class="grid-row image-left clearfix">
 											<div class="grid-item">
 												<div class="thumb text-center">
-													<img src="images/shop/sh-detail/detail-desc-01.jpg" alt="Image">
+													<img src="/Images/Product/@Model.Product.ImageName" alt="@Model.Product.Name - توضیحات">
 												</div>
 											</div><!-- /.grid-item -->
 											<div class="grid-item">
 												<div class="text-wrap">
-													<h6 class="title">100% چرم</h6>
-													<p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید داشت.</p>
+													<h6 class="title">@Model.Product.Name</h6>
+													<p>@Html.Raw(Model.Product.Description)</p>
 												</div>
 											</div>
 										</div><!-- /.grid-row -->
@@ -139,69 +169,31 @@
 								<div class="content-inner">
 									<div class="inner max-width-40">
 										<table>
-											<tr>
-												<td>وزن</td>
-												<td>1.73 کیلوگرم</td>
-											</tr>
-											<tr>
-												<td>ابعاد</td>
-												<td>100 x 37 x 100 سانتیمتر</td>
-											</tr>
-											<tr>
-												<td>جنس</td>
-												<td>80% کتان, 20% نخ</td>
-											</tr>
-											<tr>
-												<td>سایز</td>
-												<td>تک سایز, XL, L, M, S</td>
-											</tr>
+											<tbody>
+												<tr>
+													<td>وزن</td>
+													<td></td>
+												</tr>
+												<tr>
+													<td>ابعاد</td>
+													<td></td>
+												</tr>
+												<tr>
+													<td>جنس</td>
+													<td></td>
+												</tr>
+												<tr>
+													<td>سایز</td>
+													<td></td>
+												</tr>
+											</tbody>
 										</table>
 									</div>
 								</div><!-- /.content-inner -->
 								<div class="content-inner">
 									<div class="inner max-width-83 padding-top-33">
-										<ol class="review-list">
-											<li class="review">
-												<div class="thumb">
-													<img src="images/avatar-1.png" alt="Image">
-												</div>
-												<div class="text-wrap">
-													<div class="review-meta">
-														<h5 class="name">دیانا شمس</h5>
-														<div class="flat-star style-1">
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star-half-o"></i>
-														</div>
-													</div>
-													<div class="review-text">
-														<p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.</p>
-													</div>
-												</div>
-											</li><!--  /.review    -->
-											<li class="review">
-												<div class="thumb">
-													<img src="images/avatar.png" alt="Image">
-												</div>
-												<div class="text-wrap">
-													<div class="review-meta">
-														<h5 class="name">رامین چناری</h5>
-														<div class="flat-star style-1">
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star-half-o"></i>
-														</div>
-													</div>
-													<div class="review-text">
-														<p class="line-height-28">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.</p>
-													</div>
-												</div>
-											</li><!--  /.review    -->
-										</ol><!-- /.review-list -->
+										<p>نظری ثبت نشده است </p>
+										<hr />
 										<div class="comment-respond review-respond" id="respond">
 											<div class="comment-reply-title margin-bottom-14">
 												<h5>دیدگاه خود را بنویسید</h5>
