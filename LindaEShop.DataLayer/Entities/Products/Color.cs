@@ -26,6 +26,7 @@ namespace LindaEShop.DataLayer.Entities
 
 		#region Relations
 		public virtual List<ColorToProduct> ColorToProducts { get; set; }
+		public List<OrderDetail> OrderDetails { get; set; }
 		#endregion
 	}
 }

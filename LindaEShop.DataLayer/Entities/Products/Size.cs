@@ -26,6 +26,7 @@ namespace LindaEShop.DataLayer.Entities
 
 		#region Relations
 		public virtual List<SizeToProduct> SizeToProduct { get; set; }
+		public List<OrderDetail> OrderDetails { get; set; }
 		#endregion
 	}
 }

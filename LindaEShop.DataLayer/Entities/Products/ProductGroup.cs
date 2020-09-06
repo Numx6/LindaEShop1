@@ -12,13 +12,10 @@ namespace LindaEShop.DataLayer.Entities
 
 		}
 
-
 		[Key]
 		public int Id { get; set; }
-
 		[Display(Name = "نام گروه")]
 		public string Title { get; set; }
-
 		public List<Product> Product { get; set; }
 	}
 }

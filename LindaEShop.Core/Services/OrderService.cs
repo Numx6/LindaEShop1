@@ -12,12 +12,12 @@ namespace LindaEShop.Core.Services
 	{
 		private LindaContext _context;
 		private IUser _userService;
-		public OrderService(LindaContext lindaContext,IUser user)
+		public OrderService(LindaContext lindaContext, IUser user)
 		{
 			_context = lindaContext;
 			_userService = user;
 		}
-		public int AddOrder(int ProductId,string userNumber)
+		public int AddOrder(int ProductId, string userNumber, int sizeId, int colorId, int quantityNumber)
 		{
 			User user = _userService.GetUserByNumber(userNumber);
 			Order order = _context.Orders.FirstOrDefault(p => !p.IsFinaly);
@@ -29,14 +29,16 @@ namespace LindaEShop.Core.Services
 					IsFinaly = false,
 					CreateDate = DateTime.Now,
 					OrderSum = product.Price,
-					UserId=user.UserId,
+					UserId = user.UserId,
 					OrderDetails = new List<OrderDetail>()
 					 {
 						 new OrderDetail()
 						 {
 							 ProductId = product.Id,
-							 Count = 1,
+							 Count = quantityNumber,
 							 Price = product.Price,
+							 SizeId=sizeId,
+							 ColorId=colorId
 						 }
 					 }
 				};
@@ -48,9 +50,10 @@ namespace LindaEShop.Core.Services
 			{
 				OrderDetail detail = _context.OrderDetails
 					.FirstOrDefault(o => o.OrderId == order.OrderId && o.ProductId == product.Id);
-				if (detail != null)
+
+				if (detail != null && detail.ColorId == colorId && detail.SizeId == sizeId)
 				{
-					detail.Count += 1;
+					detail.Count += quantityNumber;
 					_context.OrderDetails.Update(detail);
 				}
 				else
@@ -58,9 +61,11 @@ namespace LindaEShop.Core.Services
 					detail = new OrderDetail()
 					{
 						OrderId = order.OrderId,
-						Count = 1,
+						Count = quantityNumber,
 						ProductId = product.Id,
-						Price = product.Price
+						Price = product.Price,
+						SizeId = sizeId,
+						ColorId = colorId
 					};
 					_context.OrderDetails.Add(detail);
 				}

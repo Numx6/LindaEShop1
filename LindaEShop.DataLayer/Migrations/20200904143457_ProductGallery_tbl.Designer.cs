@@ -4,14 +4,16 @@ using LindaEShop.DataLayer.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LindaEShop.DataLayer.Migrations
 {
     [DbContext(typeof(LindaContext))]
-    partial class LindaContextModelSnapshot : ModelSnapshot
+    [Migration("20200904143457_ProductGallery_tbl")]
+    partial class ProductGallery_tbl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,9 +93,6 @@ namespace LindaEShop.DataLayer.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ColorId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
@@ -106,18 +105,11 @@ namespace LindaEShop.DataLayer.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SizeId")
-                        .HasColumnType("int");
-
                     b.HasKey("DetailId");
-
-                    b.HasIndex("ColorId");
 
                     b.HasIndex("OrderId");
 
                     b.HasIndex("ProductId");
-
-                    b.HasIndex("SizeId");
 
                     b.ToTable("OrderDetails");
                 });
@@ -339,12 +331,6 @@ namespace LindaEShop.DataLayer.Migrations
 
             modelBuilder.Entity("LindaEShop.DataLayer.Entities.OrderDetail", b =>
                 {
-                    b.HasOne("LindaEShop.DataLayer.Entities.Color", "Color")
-                        .WithMany("OrderDetails")
-                        .HasForeignKey("ColorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("LindaEShop.DataLayer.Entities.Order", "Order")
                         .WithMany("OrderDetails")
                         .HasForeignKey("OrderId")
@@ -354,12 +340,6 @@ namespace LindaEShop.DataLayer.Migrations
                     b.HasOne("LindaEShop.DataLayer.Entities.Product", "Product")
                         .WithMany("OrderDetails")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("LindaEShop.DataLayer.Entities.Size", "Size")
-                        .WithMany("OrderDetails")
-                        .HasForeignKey("SizeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

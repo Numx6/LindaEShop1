@@ -85,6 +85,7 @@ namespace LindaEShop.Controllers
 								new Claim(ClaimTypes.NameIdentifier,user.UserId.ToString()),
 								new Claim(ClaimTypes.Name,user.Name),
 								new Claim(ClaimTypes.Email,user.Number),
+								new Claim(ClaimTypes.Role,user.RoleId.ToString())
 							};
 						var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 						var principal = new ClaimsPrincipal(identity);

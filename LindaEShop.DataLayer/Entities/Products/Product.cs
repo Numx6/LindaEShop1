@@ -59,5 +59,6 @@ namespace LindaEShop.DataLayer.Entities
 		public List<ColorToProduct> ColorToProducts { get; set; }
 		public List<SizeToProduct> SizeToProducts { get; set; }
 		public List<OrderDetail> OrderDetails { get; set; }
+		public List<ProductGallery> ProductGalleries { get; set; }
 	}
 }

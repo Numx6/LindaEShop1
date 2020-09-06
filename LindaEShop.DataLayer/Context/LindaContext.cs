@@ -26,8 +26,7 @@ namespace LindaEShop.DataLayer.Context
 		public DbSet<SizeToProduct> SizeToProducts { get; set; }
 		public DbSet<Color> Colors { get; set; }
 		public DbSet<ColorToProduct> ColorToProducts { get; set; }
-
-
+		public DbSet<ProductGallery> productGalleries { get; set; }
 		#endregion
 
 		#region Order

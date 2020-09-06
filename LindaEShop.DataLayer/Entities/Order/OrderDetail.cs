@@ -20,9 +20,19 @@ namespace LindaEShop.DataLayer.Entities
 		[Required]
 		public int ProductId { get; set; }
 		[Required]
+		public int ColorId { get; set; }
+		[Required]
+		public int SizeId { get; set; }
+		[Required]
 		public int Count { get; set; }
 		[Required]
 		public int Price { get; set; }
+
+		[ForeignKey("SizeId")]
+		public Size Size { get; set; }
+
+		[ForeignKey("ColorId")]
+		public Color Color { get; set; }
 
 		[ForeignKey("OrderId")]
 		public Order Order { get; set; }
