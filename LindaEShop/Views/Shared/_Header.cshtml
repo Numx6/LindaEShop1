@@ -43,8 +43,8 @@
 						@if (User.Identity.IsAuthenticated)
 						{
 
-							<a href="/UserPanel" class="btn btn-block"> @User.Identity.Name ، خوش آمدید </a>
-							<a href="#" class="btn btn-block">پنل کاربری</a>
+							<a href="#" class="btn btn-block"> @User.Identity.Name ، خوش آمدید </a>
+							<a href="/UserPanel" class="btn btn-block">پنل کاربری</a>
 							<a href="/Logout" class="btn btn-block">خروج</a>
 						}
 						else
@@ -59,8 +59,8 @@
 							@if (User.Identity.IsAuthenticated)
 							{
 								<li>
-									<a href="/UserPanel"> @User.Identity.Name ، خوش آمدید </a>
-									<a href="#">پنل کاربری</a>
+									<a href="#"> @User.Identity.Name ، خوش آمدید </a>
+									<a href="/UserPanel">پنل کاربری</a>
 									<a href="/Logout">خروج</a>
 								</li>
 							}

@@ -7,3 +7,6 @@
 .colorSpanValid {
 	color:red;
 }
+.scrollable-hight {
+	min-height:700px;
+}

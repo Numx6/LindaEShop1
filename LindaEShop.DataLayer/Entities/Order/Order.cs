@@ -21,6 +21,7 @@ namespace LindaEShop.DataLayer.Entities
 		public bool IsFinaly { get; set; }
 		[Required]
 		public DateTime CreateDate { get; set; }
+		public DateTime FinalyDate { get; set; }
 
 		[ForeignKey("UserId")]
 		public User User { get; set; }

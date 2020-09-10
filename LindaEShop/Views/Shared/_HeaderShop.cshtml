@@ -42,8 +42,8 @@
 							@if (User.Identity.IsAuthenticated)
 							{
 
-								<a href="/UserPanel" class="btn btn-block"> @User.Identity.Name ، خوش آمدید </a>
-								<a href="#" class="btn btn-block">پنل کاربری</a>
+								<a href="#" class="btn btn-block"> @User.Identity.Name ، خوش آمدید </a>
+								<a href="/UserPanel" class="btn btn-block">پنل کاربری</a>
 								<a href="/Logout" class="btn btn-block">خروج</a>
 							}
 							else
@@ -58,8 +58,8 @@
 								@if (User.Identity.IsAuthenticated)
 								{
 									<li>
-										<a href="/UserPanel"> @User.Identity.Name ، خوش آمدید </a>
-										<a href="#">پنل کاربری</a>
+										<a href="#"> @User.Identity.Name ، خوش آمدید </a>
+										<a href="/UserPanel">پنل کاربری</a>
 										<a href="/Logout">خروج</a>
 									</li>
 								}
@@ -84,7 +84,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="page-title-heading">
-					<h1 class="title">فروشگاه</h1>
+					<h1 class="title">@ViewData["Title"]</h1>
 				</div><!-- /.page-title-heading -->
 				<div class="breadcrumbs">
 					<ul>

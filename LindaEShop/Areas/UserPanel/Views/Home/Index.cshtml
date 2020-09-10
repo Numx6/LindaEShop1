@@ -1,0 +1,64 @@
+﻿@model LindaEShop.DataLayer.Entities.Order
+@{
+	Layout = "ShopLayoutModas";
+	ViewData["Title"] = "فاکتور خرید";
+}
+
+<section class="flat-row main-shop shop-4col">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="pre-scrollable scrollable-hight">
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th>محصول</th>
+								<th>تعداد</th>
+								<th>قیمت</th>
+								<th>رنگ</th>
+								<th>سایز</th>
+								<th>جمع</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var item in Model.OrderDetails)
+							{
+								<tr>
+									<td>@item.Product.Name</td>
+									<td>@item.Count</td>
+									<td>@item.Price.ToString("#,0")</td>
+									<td>@item.Color.ColorName</td>
+									<td>@item.Size.SizeProduct</td>
+									<td>@((item.Count * item.Price).ToString("#,0"))</td>
+								</tr>
+							}
+
+							<tr>
+								<td colspan="5" class="text-left">کد تخفیف</td>
+								<td>
+									<input type="text" class="form-control" />
+									<input type="submit" class="btn btn-primary btn-block colorSpanValid" style="margin-top: 5px" value="اعمال" />
+								</td>
+							</tr>
+							<tr>
+								<td colspan="5" class="text-left">جمع کل</td>
+								<td>
+									<h3>
+										@((Model.OrderDetails.Sum(od=>od.Price * od.Count).ToString("#,0")))
+									</h3>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="5" class="text-left"></td>
+								<td colspan="5">
+									<a class="btn btn-success btn-block" href="UserPanel/Home/FinalyOrder/@Model.OrderId">تایید فاکتور</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+			</div><!-- /.col-md-12 -->
+		</div><!-- /.row -->
+	</div><!-- /.container -->
+</section>

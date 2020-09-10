@@ -8,19 +8,28 @@ namespace LindaEShop.Core.Services.Interfaces
 {
 	public interface IUser
 	{
+
+		#region Get
 		public User GetUserByNumber(string number);
+
+		public int GetUserIdByUserName(string userName);
+
 		public List<User> GetAllUsers();
-
-
-		#region Login-Register-resat
-		public bool IsExistUserNumber(string number);
-		public int AddUser(User user);
-		public User LoginUser(LogInViewModel logIn);
-		public User GetUserByActiveCode(string activeCode);
-		public void UpdateUser(User user);
 
 		#endregion
 
+		#region Login-Register-resat
+		public bool IsExistUserNumber(string number);
+
+		public int AddUser(User user);
+
+		public User LoginUser(LogInViewModel logIn);
+
+		public User GetUserByActiveCode(string activeCode);
+
+		public void UpdateUser(User user);
+
+		#endregion
 
 	}
 }

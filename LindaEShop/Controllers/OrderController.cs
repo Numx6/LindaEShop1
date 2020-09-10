@@ -28,7 +28,8 @@ namespace LindaEShop.Controllers
 		{
 			string userNumber = User.FindFirst(ClaimTypes.Email)?.Value;
 			_orderService.AddOrder(productId, userNumber, sizeId, colorId, quantityNumber);
-			return RedirectToAction("ShowProduct","Product",new { id=productId});
+
+			return Redirect("/UserPanel");
 		}
 
 	}

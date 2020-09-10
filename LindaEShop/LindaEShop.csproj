@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\UserPanel\Views\Shared\" />
     <Folder Include="Pages\Admin\Users\" />
     <Folder Include="Pages\Admin\Products\" />
     <Folder Include="wwwroot\Modaz\images\about\" />

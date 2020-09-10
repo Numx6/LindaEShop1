@@ -51,14 +51,15 @@ namespace LindaEShop
 
 			#region Db Context
 
-			services.AddDbContext<LindaContext>(options => {
+			services.AddDbContext<LindaContext>(options =>
+			{
 				options.UseSqlServer("Data Source=.;Initial Catalog=LindaEShop_db;Integrated Security=True;MultipleActiveResultSets=true");
 			});
 
 			#endregion
 
 			#region IoC
-			services.AddTransient<IProduct,ProductService>();
+			services.AddTransient<IProduct, ProductService>();
 			services.AddTransient<IOrder, OrderService>();
 			services.AddTransient<IUser, UserService>();
 			#endregion
@@ -86,6 +87,9 @@ namespace LindaEShop
 			app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapRazorPages();
+				endpoints.MapControllerRoute(
+					name: "areas",
+					pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 				endpoints.MapControllerRoute(
 					name: "default",
 					pattern: "{controller=Home}/{action=Index}/{id?}");
