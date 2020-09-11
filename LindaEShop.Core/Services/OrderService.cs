@@ -79,6 +79,13 @@ namespace LindaEShop.Core.Services
 			return order.OrderId;
 		}
 
+		public void DeleteDetileInvoice(int DitileId)
+		{
+			var orderDitile = _context.OrderDetails.Find(DitileId);
+			_context.OrderDetails.Remove(orderDitile);
+			_context.SaveChanges();
+		}
+
 		public bool FinalyOrder(string userName, int orderId)
 		{
 			int userId = _userService.GetUserIdByUserName(userName);

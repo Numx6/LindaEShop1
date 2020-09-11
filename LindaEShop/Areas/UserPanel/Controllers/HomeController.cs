@@ -63,5 +63,12 @@ namespace TopLearn.Web.Areas.UserPanel.Controllers
 
 		}
 
+		public IActionResult DeleteDetileInvoice(int id)
+		{
+			_orderService.DeleteDetileInvoice(id);
+
+			return Redirect("/UserPanel");
+		}
+
 	}
 }

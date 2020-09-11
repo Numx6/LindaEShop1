@@ -12,5 +12,6 @@ namespace LindaEShop.Core.Services.Interfaces
 		Order GetOrderForuserPanel(string userNumber);
 		int GetOrderIdByUserName(string userName);
 		bool FinalyOrder(string userName, int orderId);
+		void DeleteDetileInvoice(int DitileId);
 	}
 }

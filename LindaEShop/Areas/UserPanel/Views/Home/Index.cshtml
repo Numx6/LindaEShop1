@@ -24,7 +24,9 @@
 							@foreach (var item in Model.OrderDetails)
 							{
 								<tr>
-									<td>@item.Product.Name</td>
+									<td>
+										<a href="/Product/ShowProduct/@item.ProductId">@item.Product.Name</a> - <a href="/UserPanel/Home/DeleteDetileInvoice/@item.DetailId" class="colorSpanValid"><i class="fa fa-remove"></i>حذف</a>
+									</td>
 									<td>@item.Count</td>
 									<td>@item.Price.ToString("#,0")</td>
 									<td>@item.Color.ColorName</td>
