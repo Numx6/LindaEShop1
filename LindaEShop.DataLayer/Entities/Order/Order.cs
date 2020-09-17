@@ -15,10 +15,10 @@ namespace LindaEShop.DataLayer.Entities
 		[Key]
 		public int OrderId { get; set; }
 		public int UserId { get; set; }
-
 		[Required]
 		public int OrderSum { get; set; }
 		public bool IsFinaly { get; set; }
+		public OrderType OrderType { get; set; }
 		[Required]
 		public DateTime CreateDate { get; set; }
 		public DateTime FinalyDate { get; set; }

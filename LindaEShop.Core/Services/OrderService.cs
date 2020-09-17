@@ -1,4 +1,5 @@
 ﻿using LindaEShop.Core.Services.Interfaces;
+using LindaEShop.DataLayer;
 using LindaEShop.DataLayer.Context;
 using LindaEShop.DataLayer.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -33,6 +34,8 @@ namespace LindaEShop.Core.Services
 					CreateDate = DateTime.Now,
 					OrderSum = product.Price,
 					UserId = user.UserId,
+					OrderType = OrderType.TakingOrders,
+
 					OrderDetails = new List<OrderDetail>()
 					 {
 						 new OrderDetail()
@@ -86,6 +89,14 @@ namespace LindaEShop.Core.Services
 			_context.SaveChanges();
 		}
 
+		public void EditTakingToOrderPackaging(int orderId)
+		{
+			var order=_context.Orders.Find(orderId);
+			order.OrderType = OrderType.OrderPackaging;
+			_context.Orders.Update(order);
+			_context.SaveChanges();
+		}
+
 		public bool FinalyOrder(string userName, int orderId)
 		{
 			int userId = _userService.GetUserIdByUserName(userName);
@@ -120,6 +131,12 @@ namespace LindaEShop.Core.Services
 			int userId = _userService.GetUserByNumber(userName).UserId;
 
 			return _context.Orders.FirstOrDefault(i => i.UserId == userId && i.IsFinaly == false).OrderId;
+		}
+
+		public List<Order> TakingOrdersToAdminPanel()
+		{
+			return _context.Orders.Include(od => od.OrderDetails).Include(ou=>ou.User)
+				.Where(w => w.IsFinaly == true && w.OrderType == OrderType.TakingOrders).ToList();
 		}
 
 		public void UpdatePriceOrder(int orderId)

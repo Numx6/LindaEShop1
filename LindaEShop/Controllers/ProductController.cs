@@ -70,6 +70,7 @@ namespace LindaEShop.Controllers
 					ModelState.AddModelError("quantityNumber", "کمترین تعداد سفارش 1 عدد می باشد !");
 					return View(showProduct);
 				}
+
 				return RedirectToAction("BuyProduct", "Order", new
 				{
 					colorId = showProduct.ColorId,

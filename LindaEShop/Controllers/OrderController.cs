@@ -28,5 +28,12 @@ namespace LindaEShop.Controllers
 			return Redirect("/UserPanel");
 		}
 
+		public IActionResult TakingToOrderPackaging(int id)
+		{
+			_orderService.EditTakingToOrderPackaging(id);
+
+			return Redirect("/Admin/Orders");
+		}
+
 	}
 }

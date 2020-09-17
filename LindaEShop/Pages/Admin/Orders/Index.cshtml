@@ -1,0 +1,42 @@
+﻿@page
+@model LindaEShop.Pages.Admin.Orders.IndexModel
+@{
+	ViewData["Title"] = "سفارشهای دریافتی";
+}
+<div class="col-sm-12">
+	<section class="panel">
+		<header class="panel-heading">
+			<p>سفارشهای دریافتی خام - @LindaEShop.DataLayer.OrderType.TakingOrders.ToString()</p>
+		</header>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<td>کاربر</td>
+					<th>مبلغ سفارش</th>
+					<th>تاریخ ثبت</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var item in Model.Orders)
+				{
+					<tr>
+						<td>@item.User.Name</td>
+						<td>
+							@{
+								<span>@item.OrderDetails.Sum((o => o.Count * o.Price)).ToString("#,0")</span>
+							}
+						</td>
+						<td>@item.CreateDate</td>
+						<td>
+							<a class="btn btn-success" href="/Order/TakingToOrderPackaging/@item.OrderId"> بسته بندی سفارش</a>
+							@*<a class="btn btn-warning" href="/Admin/Products/EtitProduct/@item.Id">ویرایش</a>
+								<a class="btn btn-danger" href="/Admin/Products">حذف</a>
+								<a class="btn btn-primary" href="/Admin/Products/AddToGallary/@item.Id">گالری</a>*@
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</section>
+</div>
