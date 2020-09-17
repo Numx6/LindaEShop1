@@ -49,7 +49,7 @@ namespace LindaEShop.Controllers
 					Number = register.Number.Trim(),
 					Password = PasswordHelper.EncodePasswordMd5(register.Password),
 					Name = register.Name,
-					RoleId = 1
+					RoleId = 2
 				};
 				_userService.AddUser(user);
 				Sms.SendSms(register.Number, "فروشگاه اینترنتی لیندا . ثبت نام شما با موفقیت انجام شد .");
