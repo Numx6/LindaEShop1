@@ -74,5 +74,23 @@ namespace LindaEShop.Core.Services
 
 			_context.SaveChanges();
 		}
+
+		public int AddUserAddress(UserAddress userAddress,string userName)
+		{
+			int userId = GetUserIdByUserName(userName);
+
+			userAddress.CreatDate = DateTime.Now;
+			userAddress.UserId = userId;
+
+			_context.UserAddresses.Add(userAddress);
+			_context.SaveChanges();
+
+			return userAddress.UserId;
+		}
+
+		public List<UserAddress> GetAllUserAddress()
+		{
+			return _context.UserAddresses.OrderByDescending(c => c.CreatDate).ToList();
+		}
 	}
 }

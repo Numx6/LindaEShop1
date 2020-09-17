@@ -39,5 +39,6 @@ namespace LindaEShop.DataLayer.Entities
 		[ForeignKey("RoleId")]
 		public Role Role { get; set; }
 		public List<Order> Orders { get; set; }
+		public List<UserAddress> userAddresses { get; set; }
 	}
 }

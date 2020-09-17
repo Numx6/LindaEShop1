@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using LindaEShop.Core;
+using LindaEShop.Core.DTOs;
 using LindaEShop.Core.Security;
 using LindaEShop.Core.Services.Interfaces;
 using LindaEShop.DataLayer.Entities;
@@ -21,10 +22,12 @@ namespace TopLearn.Web.Areas.UserPanel.Controllers
 	public class HomeController : Controller
 	{
 		private IOrder _orderService;
+		private IUser _userService;
 
-		public HomeController(IOrder _order)
+		public HomeController(IOrder _order, IUser _user)
 		{
 			_orderService = _order;
+			_userService = _user;
 		}
 
 		public IActionResult Index()
@@ -36,7 +39,63 @@ namespace TopLearn.Web.Areas.UserPanel.Controllers
 			return View(order);
 		}
 
-		public IActionResult FinalyOrder(int id)
+		public IActionResult ContinueTheBuyingProcess(int id) //---id = orderId
+		{
+
+			ViewData["UserAddress"] = _userService.GetAllUserAddress();
+
+			return View(new ContinueTheuyingProcessViewModel
+			{
+				OrderId = id,
+			});
+		}
+
+		[HttpPost]
+		public IActionResult ContinueTheBuyingProcess(ContinueTheuyingProcessViewModel continueTheuying, string BankPort) //---id = orderId
+		{
+			ViewData["UserAddress"] = _userService.GetAllUserAddress();
+
+			if (!ModelState.IsValid || continueTheuying.BankPort == 0)
+			{
+				ModelState.AddModelError("BankPort", "لطفا یک درگاه را انتخاب کنید");
+
+				return View(continueTheuying);
+			}
+
+			if (!ModelState.IsValid || continueTheuying.AddressId == 0)
+			{
+				ModelState.AddModelError("AddressId", "لطفا یک آدرس انتخاب کنید یا آدرس جدیدی وارد کنید");
+
+				return View(continueTheuying);
+			}
+
+			return RedirectToAction("FinalyOrder", new { id = continueTheuying.OrderId });
+		}
+
+		public IActionResult AddNewUserAddress(int id)//---id = orderId
+		{
+			ViewData["orderId"] = id;
+
+			return View();
+		}
+
+		[HttpPost]
+		public IActionResult AddNewUserAddress(UserAddress userAddress, int orderId)//---id = orderId
+		{
+			if (ModelState.IsValid)
+			{
+				string userNumber = User.FindFirst(ClaimTypes.Email)?.Value;
+				_userService.AddUserAddress(userAddress, userNumber);
+
+				return RedirectToAction("ContinueTheBuyingProcess", new { id = orderId });
+			}
+
+			ViewData["orderId"] = orderId;
+
+			return View(userAddress);
+		}
+
+		public IActionResult FinalyOrder(int id)//---id = orderId
 		{
 			//TO DO پرداخت اینترنتی
 

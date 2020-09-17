@@ -1,0 +1,48 @@
+﻿@model LindaEShop.Core.DTOs.ContinueTheuyingProcessViewModel
+@using LindaEShop.DataLayer.Entities
+@{
+	Layout = "ShopLayoutModas";
+	ViewData["Title"] = "ادامه فرایند خرید";
+	List<UserAddress> userAddresses = ViewData["UserAddress"] as List<UserAddress>;
+}
+
+
+<section class="flat-row main-shop shop-4col">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<form class="form-group" asp-action="ContinueTheBuyingProcess" method="post">
+					<input type="hidden" name="OrderId" value="@Model.OrderId" />
+					<div class="col-md-6">
+						<span> نشانی های قبلی شما  </span>
+						<a class="btn btn-outline-warning col-md-pull-12" href="/UserPanel/Home/AddNewUserAddress/@Model.OrderId">+ افزودن نشانی جدید</a>
+						<hr />
+						<ul>
+							@foreach (var item in userAddresses)
+							{
+								<li><input type="radio" name="AddressId" value="@item.AddressId" />  @item.Province - @item.City - @item.Address (@item.AddressNo) </li>
+							}
+						</ul>
+						<hr />
+						<br />
+					</div>
+					<div class="col-md-6">
+						<span> بانک عامل </span>
+						<hr />
+						<ul>
+							<li><input type="radio" name="BankPort" value="1" /> <img class="img-Bank" src="/Images/Bank.png" alt="BankImage" /> درگاه بانک صادرات   </li>
+						</ul>
+						<hr />
+						<br />
+					</div>
+					<span class="form-control-label text-danger" asp-validation-for="AddressId"></span>
+					<span class="form-control-label text-danger" asp-validation-for="BankPort"></span>
+					<button class="btn btn-lg btn-login btn-block btn-outline-success" type="submit">پرداخت و تکمیل خرید</button>
+					@*<a class="btn btn-success btn-block" href="UserPanel/Home/FinalyOrder/@Model.OrderId"> ادامه فرایند خرید</a>*@
+				</form>
+			</div>
+		</div><!-- /.row -->
+	</div><!-- /.container -->
+</section>
+
+

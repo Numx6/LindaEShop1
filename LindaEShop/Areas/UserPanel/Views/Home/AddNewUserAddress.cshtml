@@ -1,0 +1,52 @@
+﻿@model LindaEShop.DataLayer.Entities.UserAddress
+@{
+	Layout = "ShopLayoutModas";
+	ViewData["Title"] = "ثبت آدرس جدید";
+	int orderId = (int)ViewData["orderId"];
+}
+
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="title-section margin_bottom_17">
+				<h2 class="form-signin-heading">آدرس جدید خود را ثبت کنید</h2>
+			</div><!-- /.title-section -->
+		</div><!-- /.col-md-12 -->
+	</div><!-- /.row -->
+	<div class="row">
+		<div class="col-lg-8 col-lg-offset-2">
+			<a class="btn btn-outline-warning" href="/UserPanel/Home/ContinueTheBuyingProcess/@orderId">  بازگشت به صفحه قبل  </a>
+			<div class="wrap-contact">
+				<form novalidate class="contact-form form-group form-control" method="post" asp-action="AddNewUserAddress">
+					<input type="hidden" name="orderId" value="@orderId" />
+					<div class="form-text-wrap clearfix">
+						<div class="form-group">
+							<label class="form-control-label" asp-for="Province"></label>
+							<input class="form-control margin-2" asp-for="Province" type="text" autofocus>
+							<span class="form-control-label text-danger" asp-validation-for="Province"></span>
+						</div>
+						<div class="form-group">
+							<label class="form-control-label" asp-for="City"></label>
+							<input class="form-control margin-2" asp-for="City" type="text">
+							<span class="form-control-label text-danger" asp-validation-for="City"></span>
+						</div>
+						<div class="form-group">
+							<label class="form-control-label" asp-for="Address"></label>
+							<textarea class="form-control margin-2" asp-for="Address" rows="3"></textarea>
+							<span class="form-control-label text-danger" asp-validation-for="Address"></span>
+						</div>
+						<div class="form-group">
+							<label class="form-control-label" asp-for="AddressNo"></label>
+							<input class="form-control margin-2" asp-for="AddressNo" type="text">
+							<span class="form-control-label text-danger" asp-validation-for="AddressNo" class="text-danger"></span>
+						</div>
+					</div>
+					<div class="form-submit margin-top-32 ">
+						<button class="btn btn-lg btn-login btn-block" type="submit">ثبت آدرس</button>
+					</div>
+				</form>
+			</div><!-- /.wrap-contact -->
+		</div>
+	</div><!-- /.row -->
+</div><!-- /.container -->

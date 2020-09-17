@@ -17,6 +17,7 @@ namespace LindaEShop.DataLayer.Context
 		public DbSet<Role> Roles { get; set; }
 		public DbSet<User> Users { get; set; }
 		public DbSet<SmsChimp> SmsChimps { get; set; }
+		public DbSet<UserAddress> UserAddresses { get; set; }
 
 		#endregion
 
