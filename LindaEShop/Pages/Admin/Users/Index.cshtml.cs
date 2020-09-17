@@ -4,11 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using LindaEShop.Core.Services.Interfaces;
 using LindaEShop.DataLayer.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace LindaEShop.Pages.Admin.Users
 {
+    [Authorize(Roles = "1")]
     public class IndexModel : PageModel
     {
         IUser _userService;

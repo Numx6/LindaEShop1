@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using LindaEShop.Core.Services.Interfaces;
 using LindaEShop.DataLayer.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -11,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace LindaEShop.Pages.Admin.Products
 {
+	[Authorize(Roles = "1")]
 	public class AddProductModel : PageModel
 	{
 		private IProduct _productService;

@@ -18,10 +18,6 @@ namespace LindaEShop.Controllers
 		{
 			_orderService = order;
 		}
-		public IActionResult Index()
-		{
-			return View();
-		}
 
 		[Authorize]
 		public IActionResult BuyProduct(int productId, int sizeId, int colorId, int quantityNumber)

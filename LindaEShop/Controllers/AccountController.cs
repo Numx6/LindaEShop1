@@ -59,8 +59,6 @@ namespace LindaEShop.Controllers
 			return View(register);
 		}
 
-
-
 		[Route("LogIn")]
 		public IActionResult LogIn()
 		{

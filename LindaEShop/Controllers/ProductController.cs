@@ -17,6 +17,7 @@ namespace LindaEShop.Controllers
 		{
 			_productService = product;
 		}
+
 		public IActionResult Index(int pageId = 1, string filter = ""
 			, string orderBy = "n", int startPrice = 0
 			, int endPrice = 0, int selectedGroup = 0)

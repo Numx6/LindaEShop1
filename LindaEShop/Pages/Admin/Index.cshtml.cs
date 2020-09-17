@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace LindaEShop.Pages.Admin
 {
 
-    [Authorize]
+    [Authorize(Roles = "1")]
     public class IndexModel : PageModel
     {
         IUser _userService;
