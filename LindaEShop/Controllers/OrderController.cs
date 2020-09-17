@@ -28,6 +28,7 @@ namespace LindaEShop.Controllers
 			return Redirect("/UserPanel");
 		}
 
+		[Authorize(Roles = "1")]
 		public IActionResult TakingToOrderPackaging(int id)
 		{
 			_orderService.EditTakingToOrderPackaging(id);
