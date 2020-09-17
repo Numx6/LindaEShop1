@@ -60,14 +60,15 @@ namespace LindaEShop.Controllers
 		}
 
 		[Route("LogIn")]
-		public IActionResult LogIn()
+		public IActionResult LogIn(string ReturnUrl = "/")
 		{
+			ViewData["ReturnUrl"] = ReturnUrl;
 			return View();
 		}
 
 		[HttpPost]
 		[Route("LogIn")]
-		public IActionResult LogIn(LogInViewModel logIn, string ReturnUrl = "/")
+		public IActionResult LogIn(LogInViewModel logIn, string ReturnUrl)
 		{
 			if (ModelState.IsValid)
 			{
@@ -98,11 +99,7 @@ namespace LindaEShop.Controllers
 
 						#endregion
 
-						if (ReturnUrl != "/")
-						{
-							return Redirect(ReturnUrl);
-						}
-						return View();
+						return Redirect(ReturnUrl);
 					}
 					ModelState.AddModelError("Number", "حساب کاربری فعال نیست");
 				}
@@ -118,7 +115,7 @@ namespace LindaEShop.Controllers
 		public IActionResult LogOut()
 		{
 			HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-			return Redirect("/");
+			return Redirect("/LogIn");
 		}
 
 		[Route("ForgotPassword")]
@@ -162,7 +159,7 @@ namespace LindaEShop.Controllers
 				return View(reset);
 
 			User user = _userService.GetUserByActiveCode(reset.ActiveCode.Trim());
-			if (user==null)
+			if (user == null)
 			{
 				return NotFound();
 			}

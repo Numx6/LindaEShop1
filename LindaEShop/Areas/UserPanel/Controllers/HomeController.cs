@@ -31,16 +31,9 @@ namespace TopLearn.Web.Areas.UserPanel.Controllers
 		{
 			Order order;
 			string userName = User.FindFirst(ClaimTypes.Email)?.Value;
+			order = _orderService.GetOrderForuserPanel(userName);
 
-			if (_orderService.GetOrderForuserPanel(userName) == null)
-			{
-				return Redirect("/");
-			}
-			else
-			{
-				order = _orderService.GetOrderForuserPanel(userName);
-				return View(order);
-			}
+			return View(order);
 		}
 
 		public IActionResult FinalyOrder(int id)
