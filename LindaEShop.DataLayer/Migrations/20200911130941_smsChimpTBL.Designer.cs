@@ -4,14 +4,16 @@ using LindaEShop.DataLayer.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LindaEShop.DataLayer.Migrations
 {
     [DbContext(typeof(LindaContext))]
-    partial class LindaContextModelSnapshot : ModelSnapshot
+    [Migration("20200911130941_smsChimpTBL")]
+    partial class smsChimpTBL
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -131,9 +133,6 @@ namespace LindaEShop.DataLayer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Count")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatDate")
                         .HasColumnType("datetime2");
@@ -277,25 +276,6 @@ namespace LindaEShop.DataLayer.Migrations
                     b.ToTable("SizeToProducts");
                 });
 
-            modelBuilder.Entity("LindaEShop.DataLayer.Entities.SmsChimp", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreatDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Number")
-                        .HasColumnType("nvarchar(25)")
-                        .HasMaxLength(25);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SmsChimps","User");
-                });
-
             modelBuilder.Entity("LindaEShop.DataLayer.Entities.User", b =>
                 {
                     b.Property<int>("UserId")
@@ -336,6 +316,21 @@ namespace LindaEShop.DataLayer.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("LindaEShop.DataLayer.SmsChimp", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Number")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SmsChimps","User");
                 });
 
             modelBuilder.Entity("LindaEShop.DataLayer.Entities.ColorToProduct", b =>

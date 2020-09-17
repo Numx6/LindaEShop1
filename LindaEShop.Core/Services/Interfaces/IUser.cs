@@ -31,5 +31,11 @@ namespace LindaEShop.Core.Services.Interfaces
 
 		#endregion
 
+		#region SmsChimp
+
+		public void AddSmsChimp(string number);
+
+		#endregion
+
 	}
 }

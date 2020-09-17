@@ -15,21 +15,34 @@ namespace LindaEShop.Controllers
 	{
 		private readonly ILogger<HomeController> _logger;
 		private IProduct _productService;
+		private IUser _userService;
 
-		public HomeController(ILogger<HomeController> logger,IProduct product)
+		public HomeController(ILogger<HomeController> logger,IProduct product,IUser _user)
 		{
 			_logger = logger;
 			_productService = product;
+			_userService = _user;
 		}
 
 		public IActionResult Index()
 		{
+			ViewData["popular"] = _productService.GetAllProductForShop(1, 8, "", "m", 0, 0, 0).Item1;
 			return View(_productService.GetAllProductForShop(1,4,"","n",0,0,0).Item1);
 		}
 
-		public IActionResult Privacy()
+		[Route("AboutUs")]
+		public IActionResult AboutUs()
 		{
 			return View();
+		}
+
+		[HttpPost]
+		public IActionResult SmsChimp(string number)
+		{
+			number = number.Trim();
+			_userService.AddSmsChimp(number);
+
+			return RedirectToAction("Index");
 		}
 
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

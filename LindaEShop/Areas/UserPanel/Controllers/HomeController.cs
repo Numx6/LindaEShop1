@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using LindaEShop.Core;
+using LindaEShop.Core.Security;
 using LindaEShop.Core.Services.Interfaces;
 using LindaEShop.DataLayer.Entities;
 using Microsoft.AspNetCore.Authentication;
@@ -16,6 +17,7 @@ namespace TopLearn.Web.Areas.UserPanel.Controllers
 {
 	[Area("UserPanel")]
 	[Authorize]
+	//[PermissionChecker(1)]
 	public class HomeController : Controller
 	{
 		private IOrder _orderService;

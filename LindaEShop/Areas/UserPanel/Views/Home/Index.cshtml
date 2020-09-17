@@ -2,6 +2,7 @@
 @{
 	Layout = "ShopLayoutModas";
 	ViewData["Title"] = "فاکتور خرید";
+	long sumPrice = Model.OrderDetails.Sum(od => od.Price * od.Count);
 }
 
 <section class="flat-row main-shop shop-4col">
@@ -34,7 +35,19 @@
 									<td>@((item.Count * item.Price).ToString("#,0"))</td>
 								</tr>
 							}
-
+							<tr>
+								<td colspan="5" class="text-left">هزینه پست</td>
+								<td>
+									@if (sumPrice > 250000)
+									{
+										<p>رایگان</p>
+									}
+									else
+									{
+										<p>15,000 تومان</p>
+									}
+								</td>
+							</tr>
 							<tr>
 								<td colspan="5" class="text-left">کد تخفیف</td>
 								<td>
@@ -46,7 +59,14 @@
 								<td colspan="5" class="text-left">جمع کل</td>
 								<td>
 									<h3>
-										@((Model.OrderDetails.Sum(od=>od.Price * od.Count).ToString("#,0")))
+										@if (sumPrice > 250000)
+										{
+											<span>@sumPrice.ToString("#,0")</span>
+										}
+										else
+										{
+											<span>@(sumPrice+15000)</span>
+										}
 									</h3>
 								</td>
 							</tr>

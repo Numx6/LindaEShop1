@@ -87,6 +87,7 @@ namespace LindaEShop.Controllers
 								new Claim(ClaimTypes.Email,user.Number),
 								new Claim(ClaimTypes.Role,user.RoleId.ToString())
 							};
+
 						var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 						var principal = new ClaimsPrincipal(identity);
 
@@ -99,7 +100,11 @@ namespace LindaEShop.Controllers
 
 						#endregion
 
-						return Redirect(ReturnUrl);
+						if (ReturnUrl != "/")
+						{
+							return Redirect(ReturnUrl);
+						}
+						return View();
 					}
 					ModelState.AddModelError("Number", "حساب کاربری فعال نیست");
 				}

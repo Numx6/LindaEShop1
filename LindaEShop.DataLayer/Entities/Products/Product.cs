@@ -40,6 +40,9 @@ namespace LindaEShop.DataLayer.Entities
 		[Display(Name = "بازدید")]
 		public int Visit { get; set; }
 
+		[Display(Name = "تعداد")]
+		public int Count { get; set; }
+
 		[MaxLength(450)]
 		[Display(Name = "تصویر اصلی")]
 		public string ImageName { get; set; }

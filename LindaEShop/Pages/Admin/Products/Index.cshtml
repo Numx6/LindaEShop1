@@ -30,6 +30,7 @@
 					<th>کد محصول</th>
 					<th>نام</th>
 					<th>قیمت</th>
+					<th>تعداد</th>
 					<th>بازدید</th>
 					<th>وضعیت</th>
 					<th></th>
@@ -45,6 +46,7 @@
 						<td>@item.ProductCode</td>
 						<td>@item.Name</td>
 						<td>@item.Price.ToString("#,0")</td>
+						<td>@item.Count</td>
 						<td>@item.Visit</td>
 						<td>
 							@if (item.IsActive)

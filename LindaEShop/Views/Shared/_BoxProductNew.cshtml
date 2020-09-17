@@ -1,23 +1,23 @@
-﻿@model	LindaEShop.Core.DTOs.ShowProductListItemViewModel
-<li class="product-item">
-	<div class="product-thumb clearfix">
-		<a href="/Product/ShowProduct/@Model.Id" class="product-thumb">
-			<img src="/Images/Product/Thumb/@Model.ImageName" class="img-BoxProduct" alt="@Model.Name">
-		</a>
-		<span class="new">جدید</span>
-	</div>
-	<div class="product-info text-center clearfix">
-		<hr />
-		<a href="/Product/ShowProduct/@Model.Id" > <span class="product-title">@Model.Name</span></a>
-		<div class="price">
-			<ins>
-				<span class="amount">@Model.Price.ToString("#,0") تومان</span>
-			</ins>
+﻿@model LindaEShop.Core.DTOs.ShowProductListItemViewModel
+	<li class="product-item">
+		<div class="product-thumb clearfix">
+			<a href="/Product/ShowProduct/@Model.Id" class="product-thumb">
+				<img src="/Images/Product/Thumb/@Model.ImageName" class="img-BoxProduct" alt="@Model.Name">
+			</a>
+			<span class="new">جدید</span>
 		</div>
-		<span class="">کد محصول : @Model.ProductCode</span>
-	</div>
-	<div class="add-to-cart text-center">
-		<a hhref="/Product/ShowProduct/@Model.Id" >نمایش محصول</a>
-	</div>
-	<a href="#" class="like"><i class="fa fa-heart-o"></i></a>
-</li>
+		<div class="product-info text-center clearfix">
+			<hr />
+			<a href="/Product/ShowProduct/@Model.Id"> <span class="product-title">@Model.Name</span></a>
+			<div class="price">
+				<ins>
+					<span class="amount">@Model.Price.ToString("#,0") تومان</span>
+				</ins>
+			</div>
+			<span class="">کد محصول : @Model.ProductCode</span>
+		</div>
+		<div class="add-to-cart text-center">
+			<a href="/Product/ShowProduct/@Model.Id">نمایش محصول</a>
+		</div>
+		<a href="#" class="like"><i class="fa fa-heart-o"></i></a>
+	</li>

@@ -1,8 +1,10 @@
 ﻿using LindaEShop.Core.DTOs;
 using LindaEShop.Core.Security;
 using LindaEShop.Core.Services.Interfaces;
+using LindaEShop.DataLayer;
 using LindaEShop.DataLayer.Context;
 using LindaEShop.DataLayer.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +34,7 @@ namespace LindaEShop.Core.Services
 		public User LoginUser(LogInViewModel logIn)
 		{
 			logIn.Password = PasswordHelper.EncodePasswordMd5(logIn.Password);
-			return _context.Users.SingleOrDefault(u => u.Number == logIn.Number.Trim() && u.Password == logIn.Password);	
+			return _context.Users.Include(r=>r.Role).SingleOrDefault(u => u.Number == logIn.Number.Trim() && u.Password == logIn.Password);	
 		}
 
 		public bool IsExistUserNumber(string number)
@@ -61,6 +63,16 @@ namespace LindaEShop.Core.Services
 		public int GetUserIdByUserName(string userName)
 		{
 			return _context.Users.FirstOrDefault(u=>u.Number==userName).UserId;
+		}
+
+		public void AddSmsChimp(string number)
+		{
+			_context.SmsChimps.Add(new SmsChimp() { 
+			 Number=number.Trim(),
+			  CreatDate=DateTime.Now
+			});
+
+			_context.SaveChanges();
 		}
 	}
 }
