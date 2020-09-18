@@ -37,5 +37,6 @@ namespace LindaEShop.DataLayer.Entities
 
 		[ForeignKey("UserId")]
 		public User User { get; set; }
+		public Order Order { get; set; }
 	}
 }

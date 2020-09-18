@@ -1,12 +1,12 @@
 ﻿@page
-@model LindaEShop.Pages.Admin.Orders.IndexModel
+@model LindaEShop.Pages.Admin.Orders.FinalOrdersModel
 @{
-	ViewData["Title"] = "سفارشهای دریافتی";
+	ViewData["Title"] = "سفارشهای ارسال شده";
 }
 <div class="col-sm-12">
 	<section class="panel">
 		<header class="panel-heading">
-			<p>سفارشهای دریافتی خام - @LindaEShop.DataLayer.OrderType.TakingOrders.ToString()</p>
+			<p>سفارشهای ارسال شده - @LindaEShop.DataLayer.OrderType.OrderPackaging.ToString()</p>
 		</header>
 		<table class="table table-striped">
 			<thead>
@@ -26,11 +26,12 @@
 							@{
 								var sum = item.OrderDetails.Sum((o => o.Count * o.Price)) + 15000;
 
-								<span>@sum.ToString("#,0")</span> }
+								<span>@sum.ToString("#,0")</span>
+							}
 						</td>
 						<td>@item.CreateDate</td>
 						<td>
-							<a class="btn btn-success" href="/Order/TakingToOrderPackaging/@item.OrderId"> بسته بندی سفارش</a>
+							<a class="btn btn-danger" href="/Order/OrderPackagingToTaking/@item.OrderId">برگشت به سفارشات خام</a>
 							@*<a class="btn btn-warning" href="/Admin/Products/EtitProduct/@item.Id">ویرایش</a>
 								<a class="btn btn-danger" href="/Admin/Products">حذف</a>
 								<a class="btn btn-primary" href="/Admin/Products/AddToGallary/@item.Id">گالری</a>*@

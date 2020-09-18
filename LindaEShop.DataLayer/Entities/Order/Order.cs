@@ -15,9 +15,13 @@ namespace LindaEShop.DataLayer.Entities
 		[Key]
 		public int OrderId { get; set; }
 		public int UserId { get; set; }
+		public int AddressId { get; set; }
 		[Required]
 		public int OrderSum { get; set; }
 		public bool IsFinaly { get; set; }
+		[Display(Name = "توضیحات")]
+		[MaxLength(1500)]
+		public string Description { get; set; }
 		public OrderType OrderType { get; set; }
 		[Required]
 		public DateTime CreateDate { get; set; }

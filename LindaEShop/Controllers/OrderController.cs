@@ -36,5 +36,13 @@ namespace LindaEShop.Controllers
 			return Redirect("/Admin/Orders");
 		}
 
+		[Authorize(Roles = "1")]
+		public IActionResult OrderPackagingToTaking(int id)
+		{
+			_orderService.EditOrderPackagingToTaking(id);
+
+			return Redirect("/Admin/Orders/FinalOrders");
+		}
+
 	}
 }

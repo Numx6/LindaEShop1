@@ -51,7 +51,7 @@ namespace TopLearn.Web.Areas.UserPanel.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult ContinueTheBuyingProcess(ContinueTheuyingProcessViewModel continueTheuying, string BankPort) //---id = orderId
+		public IActionResult ContinueTheBuyingProcess(ContinueTheuyingProcessViewModel continueTheuying) //---id = orderId
 		{
 			ViewData["UserAddress"] = _userService.GetAllUserAddress();
 
@@ -69,7 +69,9 @@ namespace TopLearn.Web.Areas.UserPanel.Controllers
 				return View(continueTheuying);
 			}
 
-			return RedirectToAction("FinalyOrder", new { id = continueTheuying.OrderId });
+			_orderService.EditOrderdescription(continueTheuying.OrderId,continueTheuying.Description);
+
+			return RedirectToAction("FinalyOrder", new { id = continueTheuying.OrderId, address = continueTheuying.AddressId });
 		}
 
 		public IActionResult AddNewUserAddress(int id)//---id = orderId
@@ -95,20 +97,20 @@ namespace TopLearn.Web.Areas.UserPanel.Controllers
 			return View(userAddress);
 		}
 
-		public IActionResult FinalyOrder(int id)//---id = orderId
+		public IActionResult FinalyOrder(int id, int address)//---id = orderId
 		{
 			//TO DO پرداخت اینترنتی
 
 			string userNumber = User.FindFirst(ClaimTypes.Email)?.Value;
 
-			if (_orderService.FinalyOrder(userNumber, id))
+			if (_orderService.FinalyOrder(userNumber, id, address))
 			{
 				//TO DO و کد پیگیری و اینا ارسال به صفحه ای برای نمایش تکمیل شدن خرید
 				//TO DO ارسال اس ام اس  شامل کد پیگیری و از اینجور چیزا
 
 				Sms.SendSms(userNumber, "کاربر گرامی خرید شما با موفقیت انجام شد .");
 
-				return null;
+				return Redirect("/");
 			}
 			else
 			{

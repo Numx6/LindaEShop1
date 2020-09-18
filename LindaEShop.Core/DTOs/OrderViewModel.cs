@@ -14,5 +14,9 @@ namespace LindaEShop.Core.DTOs
 
 		[Required(ErrorMessage = "لطفا {0} را وارد کنید")]
 		public int BankPort { get; set; }
+
+		[Display(Name = "توضیحات")]
+		[MaxLength(1500)]
+		public string Description { get; set; }
 	}
 }

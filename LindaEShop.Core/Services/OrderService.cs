@@ -89,6 +89,22 @@ namespace LindaEShop.Core.Services
 			_context.SaveChanges();
 		}
 
+		public void EditOrderdescription(int orderId,string description)
+		{
+			var user = _context.Orders.Find(orderId);
+			user.Description = description;
+			_context.Orders.Update(user);
+			_context.SaveChanges();
+		}
+
+		public void EditOrderPackagingToTaking(int orderId)
+		{
+			var order = _context.Orders.Find(orderId);
+			order.OrderType = OrderType.TakingOrders;
+			_context.Orders.Update(order);
+			_context.SaveChanges();
+		}
+
 		public void EditTakingToOrderPackaging(int orderId)
 		{
 			var order=_context.Orders.Find(orderId);
@@ -97,7 +113,7 @@ namespace LindaEShop.Core.Services
 			_context.SaveChanges();
 		}
 
-		public bool FinalyOrder(string userName, int orderId)
+		public bool FinalyOrder(string userName, int orderId, int addressId)
 		{
 			int userId = _userService.GetUserIdByUserName(userName);
 			var order = _context.Orders.FirstOrDefault(o => o.OrderId == orderId);
@@ -106,6 +122,7 @@ namespace LindaEShop.Core.Services
 			{
 				order.IsFinaly = true;
 				order.FinalyDate = DateTime.Now;
+				order.AddressId = addressId;
 
 				_context.Orders.Update(order);
 				_context.SaveChanges();
@@ -131,6 +148,12 @@ namespace LindaEShop.Core.Services
 			int userId = _userService.GetUserByNumber(userName).UserId;
 
 			return _context.Orders.FirstOrDefault(i => i.UserId == userId && i.IsFinaly == false).OrderId;
+		}
+
+		public List<Order> PakeagingOrdersToAdminPanel()
+		{
+			return _context.Orders.Include(od => od.OrderDetails).Include(ou => ou.User)
+				.Where(w => w.IsFinaly == true && w.OrderType == OrderType.OrderPackaging).ToList();
 		}
 
 		public List<Order> TakingOrdersToAdminPanel()

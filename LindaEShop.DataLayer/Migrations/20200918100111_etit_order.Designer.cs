@@ -4,14 +4,16 @@ using LindaEShop.DataLayer.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LindaEShop.DataLayer.Migrations
 {
     [DbContext(typeof(LindaContext))]
-    partial class LindaContextModelSnapshot : ModelSnapshot
+    [Migration("20200918100111_etit_order")]
+    partial class etit_order
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,9 +66,6 @@ namespace LindaEShop.DataLayer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AddressId")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
@@ -384,9 +383,6 @@ namespace LindaEShop.DataLayer.Migrations
                     b.Property<DateTime>("CreatDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("OrderId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Province")
                         .IsRequired()
                         .HasColumnType("nvarchar(100)")
@@ -396,8 +392,6 @@ namespace LindaEShop.DataLayer.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("AddressId");
-
-                    b.HasIndex("OrderId");
 
                     b.HasIndex("UserId");
 
@@ -499,10 +493,6 @@ namespace LindaEShop.DataLayer.Migrations
 
             modelBuilder.Entity("LindaEShop.DataLayer.Entities.UserAddress", b =>
                 {
-                    b.HasOne("LindaEShop.DataLayer.Entities.Order", "Order")
-                        .WithMany()
-                        .HasForeignKey("OrderId");
-
                     b.HasOne("LindaEShop.DataLayer.Entities.User", "User")
                         .WithMany("userAddresses")
                         .HasForeignKey("UserId")
