@@ -271,9 +271,19 @@ namespace LindaEShop.Core.Services
 			}
 
 			int skip = (pageId - 1) * take;
+			int pageCount = result.Include(c => c.ColorToProducts).Include(c => c.SizeToProducts)
+				.Include(c => c.ProductGroup).Select(c => new ShowProductListItemViewModel()
+				{
+					Id = c.Id,
+					ImageName = c.ImageName,
+					IsActive = c.IsActive,
+					Name = c.Name,
+					Price = c.Price,
+					ProductCode = c.ProductCode,
+				}).Count() / take;
 
-			int pageCount = result.Count();
-			pageCount = pageCount / take;
+			//int pageCount = result.Count();
+			//pageCount = pageCount / take;
 
 			var query = result.Include(c => c.ColorToProducts).Include(c => c.SizeToProducts)
 				.Include(c => c.ProductGroup).Select(c => new ShowProductListItemViewModel()

@@ -1,21 +1,32 @@
-﻿.img-BoxProduct{
-	max-height:250px;
+﻿.img-BoxProduct {
+	max-height: 250px;
 }
-.colorBtn{
-	color:white !important;
+
+.colorBtn {
+	color: white !important;
 }
+
 .colorSpanValid {
-	color:red;
+	color: red;
 }
+
 .scrollable-hight {
-	min-height:700px;
+	min-height: 700px;
 }
-.centerText{
-	text-align:center;
+
+.centerText {
+	text-align: center;
 }
-.margin-2{
-	margin:6px;
+
+.margin-2 {
+	margin: 6px;
 }
-.img-Bank{
-	width:70px;
+
+.img-Bank {
+	width: 70px;
+}
+
+.active-paging-li {
+	background-color: #f63440 !important;
+	color: white !important;
 }

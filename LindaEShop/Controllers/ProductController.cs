@@ -22,8 +22,15 @@ namespace LindaEShop.Controllers
 			, string orderBy = "n", int startPrice = 0
 			, int endPrice = 0, int selectedGroup = 0)
 		{
-			var query = _productService.GetAllProductForShop(pageId, 4, filter, orderBy, startPrice, endPrice, selectedGroup);
+			var query = _productService.GetAllProductForShop(pageId,12, filter, orderBy, startPrice, endPrice, selectedGroup);
 			ViewBag.PageCount = query.Item2;
+			ViewBag.selectedGroup = selectedGroup;
+			ViewBag.endPrice = endPrice;
+			ViewBag.startPrice = startPrice;
+			ViewBag.filter = filter;
+			ViewBag.orderBy = orderBy;
+			ViewBag.pageId = pageId;
+
 			return View(query.Item1);
 		}
 

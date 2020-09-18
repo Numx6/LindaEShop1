@@ -2,13 +2,23 @@
 @{
 	ViewData["Title"] = "فروشگاه";
 	Layout = "ShopLayoutModas";
+
 	var pageCount = ViewBag.PageCount;
+	var selectedGroup = ViewBag.selectedGroup;
+	var endPrice = ViewBag.endPrice;
+	var startPrice = ViewBag.startPrice;
+	var filter = ViewBag.filter;
+	var orderBy = ViewBag.orderBy;
+	var pageId = ViewBag.pageId;
+
+	int j = 1;
 }
 <section class="flat-row main-shop shop-4col">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
 				<div class="filter-shop bottom_68 clearfix">
+					<span>صفحه @pageId از @pageCount صفحه</span>
 					<ul class="flat-filter-search">
 						<li>
 							<a href="#" class="show-filter">فیلترها</a>
@@ -23,6 +33,7 @@
 				</div><!-- /.filte-shop -->
 				<div class="box-filter slidebar-shop clearfix">
 					<form href="Product" method="get">
+						<input type="hidden" name="selectedGroup" value="@selectedGroup" />
 						<div class="btn-close"><a href="#"><i class="fa fa-times"></i></a></div>
 						<div class="widget widget-sort-by">
 							<h5 class="widget-title">
@@ -92,20 +103,24 @@
 					</ul><!-- /.product -->
 				</div><!-- /.product-content -->
 				@{
-					@*if (pageCount >= 1)
+					if (pageCount > 1)
 					{
 						<div class="product-pagination text-center margin-top-11 clearfix">
 							<ul class="flat-pagination">
-								@for (int i = 1; i < pageCount ; i++)
-								{
-									<li><a href="/Product?pageId=@i" >@i</a></li>
+								@{
+									int pageIdInt = Convert.ToInt32(pageId);
+									for (int i = 0; i < pageCount; i++)
+									{
+										<li><a class="@((j==pageIdInt)?"active-paging-li":"")" href="/Product?pageId=@j&filter=@filter&orderBy=@orderBy&startPrice=@startPrice&endPrice=@endPrice&selectedGroup=@selectedGroup">@j</a></li>
+										j++;
+									}
 								}
-							</ul> /.flat-pagination 
+							</ul>
 						</div>
-					}*@
+					}
 				}
 
 			</div><!-- /.col-md-12 -->
 		</div><!-- /.row -->
 	</div><!-- /.container -->
-</section><!-- /.flat-row -->
+</section><!-- /.flat-row -->@*@((i==Model.IndexProduct.CurrentPage)?"active":"")"*@
