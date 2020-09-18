@@ -165,6 +165,7 @@ namespace LindaEShop.Controllers
 			}
 			string newPassword = PasswordHelper.EncodePasswordMd5(reset.Password);
 			user.Password = newPassword;
+			user.ActivCode = new Random().Next(100000, 999999).ToString();
 			_userService.UpdateUser(user);
 
 			ViewBag.ResetPassword = "ok";
