@@ -11,10 +11,12 @@ namespace LindaEShop.Core.Services.Interfaces
 		int AddOrder(int ProductId, string userNumber, int sizeId, int colorId, int quantityNumber);
 		void UpdatePriceOrder(int orderId);
 		Order GetOrderForuserPanel(string userNumber);
+		Order GetOrderByOrderId(int orderId);
 		int GetOrderIdByUserName(string userName);
-		bool FinalyOrder(string userName, int orderId,int addressId);
+		bool AddAddressToOrder(int orderId,int addressId);
 		void DeleteDetileInvoice(int DitileId);
 		void EditOrderdescription(int orderId,string description);
+		void UpdateOrder(Order order);
 
 		#region order for adminPanel
 

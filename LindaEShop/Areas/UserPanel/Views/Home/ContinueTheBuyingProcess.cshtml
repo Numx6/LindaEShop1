@@ -23,30 +23,39 @@
 								<li><input type="radio" name="AddressId" value="@item.AddressId" />  @item.Province - @item.City - @item.Address (@item.AddressNo) </li>
 							}
 						</ul>
-						<hr />
 						<br />
+						<div class="form-group">
+							<div><textarea placeholder="توضیحات ... " class="form-control text-area-hgith" asp-for="Description"></textarea></div>
+							<span asp-validation-for="Description" class="text-danger"></span>
+						</div>
+						<div class="hidden-md-up">
+							<br />
+							<hr />
+							<br />
+						</div>
 					</div>
 					<div class="col-md-6">
 						<span> بانک عامل </span>
-						<hr />
+						<div class="hidden-md-down">
+							<hr />
+						</div>
 						<ul>
-							<li><input type="radio" name="BankPort" value="1" /> <img class="img-Bank" src="/Images/Bank.png" alt="BankImage" /> درگاه بانک صادرات   </li>
+							<li>
+								<input type="radio" name="BankPort" value="1" />
+								<script src="https://www.zarinpal.com/webservice/TrustCode" type="text/javascript"></script> درگاه امن زرین پال
+							</li>
 						</ul>
-						<hr />
-						<br />
+						<div class="hidden-md-up">
+							<hr />
+						</div>
 					</div>
-					<div class="form-group">
-						<label asp-for="Description"></label>
-						<div><textarea class="form-control" asp-for="Description" rows="1"></textarea></div>
-						<span asp-validation-for="Description" class="text-danger"></span>
-					</div>
+					<br />
 					<br />
 
 					<span class="form-control-label text-danger" asp-validation-for="AddressId"></span>
 					<span class="form-control-label text-danger" asp-validation-for="Description"></span>
 					<span class="form-control-label text-danger" asp-validation-for="BankPort"></span>
-					<button class="btn btn-lg btn-login btn-block btn-outline-success" type="submit">پرداخت و تکمیل خرید</button>
-					@*<a class="btn btn-success btn-block" href="UserPanel/Home/FinalyOrder/@Model.OrderId"> ادامه فرایند خرید</a>*@
+					<button class="btn btn-success btn-block" type="submit">پرداخت و تکمیل خرید</button>
 				</form>
 			</div>
 		</div><!-- /.row -->

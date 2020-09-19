@@ -11,7 +11,7 @@
 }
 
 .scrollable-hight {
-	min-height: 700px;
+	min-height: 500px;
 }
 
 .centerText {
@@ -29,4 +29,7 @@
 .active-paging-li {
 	background-color: #f63440 !important;
 	color: white !important;
+}
+.text-area-hgith{
+	max-height:100px;
 }

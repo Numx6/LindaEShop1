@@ -69,9 +69,9 @@ namespace TopLearn.Web.Areas.UserPanel.Controllers
 				return View(continueTheuying);
 			}
 
-			_orderService.EditOrderdescription(continueTheuying.OrderId,continueTheuying.Description);
+			_orderService.EditOrderdescription(continueTheuying.OrderId, continueTheuying.Description);
 
-			return RedirectToAction("FinalyOrder", new { id = continueTheuying.OrderId, address = continueTheuying.AddressId });
+			return RedirectToAction("FinalyOrder", new { orderId = continueTheuying.OrderId, addressId = continueTheuying.AddressId });
 		}
 
 		public IActionResult AddNewUserAddress(int id)//---id = orderId
@@ -97,26 +97,29 @@ namespace TopLearn.Web.Areas.UserPanel.Controllers
 			return View(userAddress);
 		}
 
-		public IActionResult FinalyOrder(int id, int address)//---id = orderId
+		public IActionResult FinalyOrder(int orderId, int addressId)//---id = orderId
 		{
-			//TO DO پرداخت اینترنتی
+			_orderService.AddAddressToOrder(orderId, addressId);
+			Order order = _orderService.GetOrderByOrderId(orderId);
 
-			string userNumber = User.FindFirst(ClaimTypes.Email)?.Value;
-
-			if (_orderService.FinalyOrder(userNumber, id, address))
+			if (order.OrderDetails == null)
 			{
-				//TO DO و کد پیگیری و اینا ارسال به صفحه ای برای نمایش تکمیل شدن خرید
-				//TO DO ارسال اس ام اس  شامل کد پیگیری و از اینجور چیزا
-
-				Sms.SendSms(userNumber, "کاربر گرامی خرید شما با موفقیت انجام شد .");
-
 				return Redirect("/");
 			}
-			else
+
+			#region onlin payment
+
+			var payment = new Zarinpal.Payment("054939ee-3bc1-11ea-9822-000c295eb8fc", order.OrderSum + 15000); //----15.000---هزینه پست
+			var res = payment.PaymentRequest("فروشگاه اینترنتی لیندا", "https://localhost:44396/OnlinePayment/" + orderId, "", "");
+
+			if (res.Result.Status == 100)
 			{
-				return BadRequest();
+				return Redirect("https://sandbox.zarinpal.com/pg/StartPay/" + res.Result.Authority);
 			}
 
+			return NotFound();
+
+			#endregion
 		}
 
 		public IActionResult DeleteDetileInvoice(int id)

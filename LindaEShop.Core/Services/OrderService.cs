@@ -85,9 +85,10 @@ namespace LindaEShop.Core.Services
 					};
 					_context.OrderDetails.Add(detail);
 				}
-				_context.SaveChanges();
-				UpdatePriceOrder(order.OrderId);
+				_context.SaveChanges();			
 			}
+
+			UpdatePriceOrder(order.OrderId);
 
 			return order.OrderId;
 		}
@@ -123,15 +124,12 @@ namespace LindaEShop.Core.Services
 			_context.SaveChanges();
 		}
 
-		public bool FinalyOrder(string userName, int orderId, int addressId)
+		public bool AddAddressToOrder( int orderId, int addressId)
 		{
-			int userId = _userService.GetUserIdByUserName(userName);
 			var order = _context.Orders.FirstOrDefault(o => o.OrderId == orderId);
 
 			if (order != null)
 			{
-				order.IsFinaly = true;
-				order.FinalyDate = DateTime.Now;
 				order.AddressId = addressId;
 
 				_context.Orders.Update(order);
@@ -198,12 +196,22 @@ namespace LindaEShop.Core.Services
 
 		public void UpdatePriceOrder(int orderId)
 		{
-			Order order = _context.Orders.Find(orderId);
-			order.OrderSum = _context.OrderDetails.Where(d => d.OrderId == orderId)
-				.Sum(s => s.Price);
+			Order order = _context.Orders.Include(od=>od.OrderDetails).FirstOrDefault(o=>o.OrderId==orderId);
+			var sum = order.OrderDetails.Sum(o => o.Count * o.Price);
+			order.OrderSum = sum;
+
+			UpdateOrder(order);
+		}
+
+		public Order GetOrderByOrderId(int orderId)
+		{
+			return _context.Orders.Find(orderId);
+		}
+
+		public void UpdateOrder(Order order)
+		{
 			_context.Orders.Update(order);
 			_context.SaveChanges();
 		}
-
 	}
 }
