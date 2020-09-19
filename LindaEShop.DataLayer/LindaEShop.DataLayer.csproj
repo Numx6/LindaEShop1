@@ -9,6 +9,8 @@
     <Compile Remove="Migrations\20200906121840_edite_orderDetile.Designer.cs" />
     <Compile Remove="Migrations\20200917151826_add_OrderTyype.cs" />
     <Compile Remove="Migrations\20200917151826_add_OrderTyype.Designer.cs" />
+    <Compile Remove="Migrations\20200918122507_02.cs" />
+    <Compile Remove="Migrations\20200918122507_02.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

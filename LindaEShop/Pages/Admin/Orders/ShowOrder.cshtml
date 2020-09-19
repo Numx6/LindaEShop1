@@ -1,0 +1,108 @@
+﻿@page "{id}"
+@model LindaEShop.Pages.Admin.Orders.ShowOrderModel
+@{
+	ViewData["Title"] = "سفارشهای ارسال شده";
+}
+<div class="row">
+	<div class="col-md-12">
+		<div class="panel panel-primary">
+			<div class="panel-heading">سربرگ سفارش</div>
+			<div class="panel-body">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<td>جمع مبلغ</td>
+							<td> مبلغ پرداخت</td>
+							<th>کد پیگیری پرداخت</th>
+							<th>حالت سفارش</th>
+							<th>تاریخ ثبت</th>
+							<th>تاریخ پرداخت</th>
+							<th>توضیحات</th>
+							<th>کاربر</th>
+							<th>یوزر نیم</th>
+							<th>نقش</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>@Model.showOrder.Order.OrderSum</td>
+							<td>@Model.showOrder.Order.OrderSum</td>
+							<td>@Model.showOrder.Order.BankCode</td>
+							<td>@Model.showOrder.Order.OrderType</td>
+							<td>@Model.showOrder.Order.CreateDate</td>
+							<td>@Model.showOrder.Order.FinalyDate</td>
+							<td>@Model.showOrder.Order.Description</td>
+							<td>@Model.showOrder.Name</td>
+							<td>@Model.showOrder.userName</td>
+							<td>@Model.showOrder.RoleName</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-12">
+		<div class="panel panel-info">
+			<div class="panel-heading">ادرس </div>
+			<div class="panel-body">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<td> کد پستی</td>
+							<td> استان</td>
+							<td> شهر</td>
+							<td> ادرس</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>@Model.showOrder.addressNo</td>
+							<td>@Model.showOrder.Provinc</td>
+							<td>@Model.showOrder.City</td>
+							<td>@Model.showOrder.Address</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-lg-12">
+		<div class="panel panel-info">
+			<div class="panel-heading">جزییات سفارش</div>
+			<div class="panel-body">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<td></td>
+							<td>نام محصول</td>
+							<td>کد محصول</td>
+							<td>تعداد</td>
+							<td>قیمت</td>
+							<td>رنگ</td>
+							<td>سایز</td>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var item in Model.showOrder.Order.OrderDetails)
+						{
+							<tr>
+								<td style="width:100px">
+									<img src="/Images/Product/Thumb/@item.Product.ImageName" class="thumbnail" />
+								</td>
+								<td><a href="/Product/ShowProduct/@item.ProductId">@item.Product.Name</a> </td>
+								<td>@item.Product.ProductCode</td>
+								<td>@item.Product.Count</td>
+								<td>@item.Product.Price</td>
+								<td>@item.ColorName</td>
+								<td>@item.SizeName</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+
+			</div>
+		</div>
+	</div>
+</div>

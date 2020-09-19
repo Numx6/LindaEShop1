@@ -22,6 +22,8 @@ namespace LindaEShop.DataLayer.Entities
 		[Display(Name = "توضیحات")]
 		[MaxLength(1500)]
 		public string Description { get; set; }
+		[Display(Name = "کد پیگیری بانک")]
+		public string BankCode { get; set; }
 		public OrderType OrderType { get; set; }
 		[Required]
 		public DateTime CreateDate { get; set; }

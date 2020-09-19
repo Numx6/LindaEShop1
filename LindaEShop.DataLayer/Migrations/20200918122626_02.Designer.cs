@@ -4,14 +4,16 @@ using LindaEShop.DataLayer.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LindaEShop.DataLayer.Migrations
 {
     [DbContext(typeof(LindaContext))]
-    partial class LindaContextModelSnapshot : ModelSnapshot
+    [Migration("20200918122626_02")]
+    partial class _02
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,9 +69,6 @@ namespace LindaEShop.DataLayer.Migrations
 
                     b.Property<int>("AddressId")
                         .HasColumnType("int");
-
-                    b.Property<string>("BankCode")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");

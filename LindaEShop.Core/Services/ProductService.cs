@@ -319,6 +319,11 @@ namespace LindaEShop.Core.Services
 			return _context.Sizes.ToList();
 		}
 
+		public string GetColorNameById(int colorId)
+		{
+			return _context.Colors.Find(colorId).ColorName;
+		}
+
 		public List<int> GetColorOfProduct(int productId)
 		{
 			return _context.ColorToProducts.Where(w => w.ProductId == productId).Select(s => s.ColorId).ToList();
@@ -339,6 +344,11 @@ namespace LindaEShop.Core.Services
 		public Product GetProductyId(int id)
 		{
 			return _context.Products.Find(id);
+		}
+
+		public string GetSizeNameById(int sizeId)
+		{
+			return _context.Sizes.Find(sizeId).SizeProduct;
 		}
 
 		public List<int> GetSizeOfProduct(int productId)

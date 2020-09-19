@@ -1,4 +1,5 @@
-﻿using LindaEShop.Core.Services.Interfaces;
+﻿using LindaEShop.Core.DTOs;
+using LindaEShop.Core.Services.Interfaces;
 using LindaEShop.DataLayer;
 using LindaEShop.DataLayer.Context;
 using LindaEShop.DataLayer.Entities;
@@ -14,11 +15,13 @@ namespace LindaEShop.Core.Services
 	{
 		private LindaContext _context;
 		private IUser _userService;
+		private IProduct _productService;
 
-		public OrderService(LindaContext lindaContext, IUser user)
+		public OrderService(LindaContext lindaContext, IUser user, IProduct productService)
 		{
 			_context = lindaContext;
 			_userService = user;
+			_productService = productService;
 		}
 
 		public int AddOrder(int ProductId, string userNumber, int sizeId, int colorId, int quantityNumber)
@@ -26,6 +29,9 @@ namespace LindaEShop.Core.Services
 			User user = _userService.GetUserByNumber(userNumber);
 			Order order = _context.Orders.FirstOrDefault(p => !p.IsFinaly);
 			Product product = _context.Products.Find(ProductId);
+			string colorName = _productService.GetColorNameById(colorId);
+			string sizeName = _productService.GetSizeNameById(sizeId);
+
 			if (order == null)
 			{
 				order = new Order()
@@ -44,7 +50,9 @@ namespace LindaEShop.Core.Services
 							 Count = quantityNumber,
 							 Price = product.Price,
 							 SizeId=sizeId,
-							 ColorId=colorId
+							 ColorId=colorId,
+							 ColorName=colorName,
+							 SizeName=sizeName
 						 }
 					 }
 				};
@@ -71,7 +79,9 @@ namespace LindaEShop.Core.Services
 						ProductId = product.Id,
 						Price = product.Price,
 						SizeId = sizeId,
-						ColorId = colorId
+						ColorId = colorId,
+						ColorName = colorName,
+						SizeName = sizeName
 					};
 					_context.OrderDetails.Add(detail);
 				}
@@ -89,7 +99,7 @@ namespace LindaEShop.Core.Services
 			_context.SaveChanges();
 		}
 
-		public void EditOrderdescription(int orderId,string description)
+		public void EditOrderdescription(int orderId, string description)
 		{
 			var user = _context.Orders.Find(orderId);
 			user.Description = description;
@@ -107,7 +117,7 @@ namespace LindaEShop.Core.Services
 
 		public void EditTakingToOrderPackaging(int orderId)
 		{
-			var order=_context.Orders.Find(orderId);
+			var order = _context.Orders.Find(orderId);
 			order.OrderType = OrderType.OrderPackaging;
 			_context.Orders.Update(order);
 			_context.SaveChanges();
@@ -156,9 +166,33 @@ namespace LindaEShop.Core.Services
 				.Where(w => w.IsFinaly == true && w.OrderType == OrderType.OrderPackaging).ToList();
 		}
 
+		public ShowOrderForUserPanelViewModel ShowOrderForUserPanel(int orderID)
+		{
+			var order = _context.Orders.Include(c => c.OrderDetails).ThenInclude(op => op.Product)
+				.FirstOrDefault(o => o.OrderId == orderID && o.IsFinaly == true);
+
+			var user = _context.Users.Include(r => r.Role).FirstOrDefault(i => i.UserId == order.UserId);
+			var address = _context.UserAddresses.Find(order.AddressId);
+
+
+			return new ShowOrderForUserPanelViewModel()
+			{
+				Order = order,
+
+				Provinc = address.Province,
+				City = address.City,
+				Address = address.Address,
+				addressNo = address.AddressNo,
+
+				Name = user.Name,
+				userName = user.Number,
+				RoleName = user.Role.RoleTitle
+			};
+		}
+
 		public List<Order> TakingOrdersToAdminPanel()
 		{
-			return _context.Orders.Include(od => od.OrderDetails).Include(ou=>ou.User)
+			return _context.Orders.Include(od => od.OrderDetails).Include(ou => ou.User)
 				.Where(w => w.IsFinaly == true && w.OrderType == OrderType.TakingOrders).ToList();
 		}
 
@@ -170,5 +204,6 @@ namespace LindaEShop.Core.Services
 			_context.Orders.Update(order);
 			_context.SaveChanges();
 		}
+
 	}
 }

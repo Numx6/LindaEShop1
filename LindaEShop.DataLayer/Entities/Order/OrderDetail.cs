@@ -27,6 +27,12 @@ namespace LindaEShop.DataLayer.Entities
 		public int Count { get; set; }
 		[Required]
 		public int Price { get; set; }
+		[Display(Name = "رنگ")]
+		[MaxLength(50)]
+		public string ColorName { get; set; }
+		[Display(Name = "سایز")]
+		[MaxLength(50)]
+		public string SizeName { get; set; }
 
 		[ForeignKey("SizeId")]
 		public Size Size { get; set; }

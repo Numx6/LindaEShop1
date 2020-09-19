@@ -1,4 +1,5 @@
-﻿using LindaEShop.DataLayer.Entities;
+﻿using LindaEShop.Core.DTOs;
+using LindaEShop.DataLayer.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -22,6 +23,7 @@ namespace LindaEShop.Core.Services.Interfaces
 		void EditTakingToOrderPackaging(int orderId);
 		void EditOrderPackagingToTaking(int orderId);
 
+		public ShowOrderForUserPanelViewModel ShowOrderForUserPanel(int orderID);
 
 		#endregion
 	}

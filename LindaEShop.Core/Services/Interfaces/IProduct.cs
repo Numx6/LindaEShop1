@@ -28,6 +28,8 @@ namespace LindaEShop.Core.Services.Interfaces
 		List<int> GetSizeOfProduct(int productId);
 		bool CodeProductIsExist(string productCode);
 		Product GetProductForShow(int productId);
+		string GetColorNameById(int colorId);
+		string GetSizeNameById(int sizeId);
 		#endregion
 
 		#region Product Gallary	
