@@ -53,7 +53,8 @@ namespace LindaEShop
 
 			services.AddDbContext<LindaContext>(options =>
 			{
-				options.UseSqlServer("Data Source=.;Initial Catalog=LindaEShop_db;Integrated Security=True;MultipleActiveResultSets=true");
+				//options.UseSqlServer("Data Source=.;Initial Catalog=LindaEShop_db;Integrated Security=True;MultipleActiveResultSets=true");
+				options.UseSqlServer(Configuration.GetConnectionString("LindaConnection"));
 			});
 
 			#endregion
