@@ -110,7 +110,7 @@ namespace TopLearn.Web.Areas.UserPanel.Controllers
 			#region onlin payment
 
 			var payment = new Zarinpal.Payment("054939ee-3bc1-11ea-9822-000c295eb8fc", order.OrderSum + 15000); //----15.000---هزینه پست
-			var res = payment.PaymentRequest("فروشگاه اینترنتی لیندا", "https://localhost:44396/OnlinePayment/" + orderId, "", "");
+			var res = payment.PaymentRequest("فروشگاه اینترنتی لیندا", "http://lindaunderwear.ir/OnlinePayment/" + orderId, "", "");
 
 			if (res.Result.Status == 100)
 			{
