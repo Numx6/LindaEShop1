@@ -197,6 +197,15 @@ namespace LindaEShop.Core.Services
 			_context.SaveChanges();
 		}
 
+		public void EditProduct(Product product)
+		{
+			if (product != null)
+			{
+				_context.Products.Update(product);
+				_context.SaveChanges();
+			}
+		}
+
 		public List<Color> GetAllColors()
 		{
 			return _context.Colors.ToList();

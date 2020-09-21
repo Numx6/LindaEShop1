@@ -37,20 +37,23 @@ namespace LindaEShop.Controllers
 		public IActionResult ShowProduct(int id)
 		{
 			var product = _productService.GetProductForShow(id);
-			var showProduct = new BuyProductViewModel()
-			{
-				Product = product
-			};
+			product.Visit++;
+			_productService.EditProduct(product);
 
-			if (product == null)
+			if (product != null)
 			{
-				return NotFound();
+				var showProduct = new BuyProductViewModel()
+				{
+					Product = product
+				};
+
+				ViewData["colors"] = _productService.GetAllColors();
+				ViewData["sizes"] = _productService.GetAllSize();
+
+				return View(showProduct);
 			}
 
-			ViewData["colors"] = _productService.GetAllColors();
-			ViewData["sizes"] = _productService.GetAllSize();
-
-			return View(showProduct);
+			return NotFound();
 		}
 
 		[HttpPost]
