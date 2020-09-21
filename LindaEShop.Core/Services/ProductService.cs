@@ -3,6 +3,7 @@ using LindaEShop.Core.DTOs;
 using LindaEShop.Core.Generator;
 using LindaEShop.Core.Security;
 using LindaEShop.Core.Services.Interfaces;
+using LindaEShop.DataLayer;
 using LindaEShop.DataLayer.Context;
 using LindaEShop.DataLayer.Entities;
 using Microsoft.AspNetCore.Http;
@@ -310,7 +311,7 @@ namespace LindaEShop.Core.Services
 
 		public List<ProductGroup> GetAllproductGroups()
 		{
-			return _context.ProductGroups.ToList();
+			return _context.ProductGroups.Where(t=>t.groupType==GroupType.Main).ToList();
 		}
 
 		public List<SelectListItem> GetAllProductGroupsSelectList()

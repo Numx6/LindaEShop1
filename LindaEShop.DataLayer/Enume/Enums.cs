@@ -22,5 +22,13 @@ namespace LindaEShop.DataLayer
 		[Description("برگشت سفارش")]
 		ReturnOrder = 5
 	}
+	public enum GroupType
+	{
+		[Description("گروه اصلی")]
+		Main = 1,
+
+		[Description("گروه فرعی")]
+		Sub = 2
+	}
 
 }

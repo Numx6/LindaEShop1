@@ -16,6 +16,8 @@ namespace LindaEShop.DataLayer.Entities
 		public int Id { get; set; }
 		[Display(Name = "نام گروه")]
 		public string Title { get; set; }
+		[Display(Name = "نوع گروه")]
+		public GroupType groupType { get; set; }
 		public List<Product> Product { get; set; }
 	}
 }
