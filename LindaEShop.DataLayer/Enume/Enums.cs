@@ -30,5 +30,12 @@ namespace LindaEShop.DataLayer
 		[Description("گروه فرعی")]
 		Sub = 2
 	}
+	public enum Gender
+	{
+		[Description("مرد")]
+		Man = 1,
 
+		[Description("زن")]
+		Female = 2
+	}
 }

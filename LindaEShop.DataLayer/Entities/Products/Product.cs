@@ -53,6 +53,9 @@ namespace LindaEShop.DataLayer.Entities
 
 		[Display(Name = "فعال")]
 		public bool IsActive { get; set; }
+		
+		[Display(Name = "جنسیت")]
+		public Gender Gender { get; set; }
 
 		[Display(Name = "حذف شده")]
 		public bool IsDelete { get; set; }

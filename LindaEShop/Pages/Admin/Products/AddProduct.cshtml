@@ -41,6 +41,14 @@
 						<span asp-validation-for="Product.Count"></span>
 					</div>
 					<div class="form-group">
+						<label>جنسیت </label>
+						<ul>
+							<li><input type="radio" asp-for="Product.Gender" value="2" />زنانه</li>
+							<li><input type="radio" asp-for="Product.Gender" value="1" />مردانه</li>
+						</ul>
+						<span asp-validation-for="Product.Count"></span>
+					</div>
+					<div class="form-group">
 						<label>توضیح کوتاه</label>
 						<textarea class="form-control" asp-for="Product.ShortDescription" rows="2"></textarea>
 						<span asp-validation-for="Product.ShortDescription"></span>
