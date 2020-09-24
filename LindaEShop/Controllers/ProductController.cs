@@ -22,7 +22,7 @@ namespace LindaEShop.Controllers
 			, string orderBy = "n", int startPrice = 0
 			, int endPrice = 0, int selectedGroup = 0)
 		{
-			var query = _productService.GetAllProductForShop(pageId,2, filter, orderBy, startPrice, endPrice, selectedGroup);
+			var query = _productService.GetAllProductForShop(pageId,12, filter, orderBy, startPrice, endPrice, selectedGroup);
 			ViewBag.PageCount = query.Item2;
 			ViewBag.selectedGroup = selectedGroup;
 			ViewBag.endPrice = endPrice;
@@ -88,6 +88,11 @@ namespace LindaEShop.Controllers
 				if (showProduct.quantityNumber < 1)
 				{
 					ModelState.AddModelError("quantityNumber", "کمترین تعداد سفارش 1 عدد می باشد !");
+					return View(showProduct);
+				}
+				if (showProduct.quantityNumber > showProduct.Product.Count)
+				{
+					ModelState.AddModelError("quantityNumber", "تعداد بیشتر از موجودی محصول می باشد");
 					return View(showProduct);
 				}
 

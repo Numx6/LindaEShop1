@@ -19,6 +19,7 @@ namespace LindaEShop.Core.Services.Interfaces
 		int AddProduct(Product product, IFormFile imgUp, List<int> selectedColor, List<int> selectedSize);
 		void EditProduct(Product product, IFormFile imgUp, List<int> selectedColor, List<int> selectedSize);
 		void EditProduct(Product product);
+		void UpdateCountProduct(int productId, int count);
 		IndexProductAdminPanelViewModel GetAllProduct(int pageId = 1, string codeFilter = "", string nameFilter = "");
 		Tuple<List<ShowProductListItemViewModel>,int> GetAllProductForShop(int pageId=1,int take=0,string filter="",string orderBy="p"
 			,int startPrice=0,int endPrice=0,int selectedGroup=0);

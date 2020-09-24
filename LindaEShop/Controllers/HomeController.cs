@@ -54,9 +54,15 @@ namespace LindaEShop.Controllers
 				string Name = User.FindFirst(ClaimTypes.Name)?.Value;
 
 				var payment = new Zarinpal.Payment("054939ee-3bc1-11ea-9822-000c295eb8fc", order.OrderSum);
-				var res = payment.Verification(authority).Result; 
+				var res = payment.Verification(authority).Result;
+
 				if (res.Status == 100)
 				{
+					foreach (var item in order.OrderDetails)
+					{
+						_productService.UpdateCountProduct(item.ProductId, item.Count);
+					}
+
 					ViewBag.code = res.RefId;
 					ViewBag.IsSuccess = true;
 					order.IsFinaly = true;

@@ -365,5 +365,12 @@ namespace LindaEShop.Core.Services
 		{
 			return _context.SizeToProducts.Where(u => u.ProductId == productId).Select(p => p.SizeId).ToList();
 		}
+
+		public void UpdateCountProduct(int productId, int count)
+		{
+			Product product = _context.Products.Find(productId);
+			product.Count -= count;
+			_context.SaveChanges();
+		}
 	}
 }
