@@ -114,7 +114,7 @@ namespace TopLearn.Web.Areas.UserPanel.Controllers
 
 			if (res.Result.Status == 100)
 			{
-				return Redirect("https://sandbox.zarinpal.com/pg/StartPay/" + res.Result.Authority);
+				return Redirect("https://zarinpal.com/pg/StartPay/" + res.Result.Authority);
 			}
 
 			return NotFound();

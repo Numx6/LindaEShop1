@@ -205,7 +205,7 @@ namespace LindaEShop.Core.Services
 
 		public Order GetOrderByOrderId(int orderId)
 		{
-			return _context.Orders.Find(orderId);
+			return _context.Orders.Include(d=>d.OrderDetails).FirstOrDefault(i=>i.OrderId==orderId);
 		}
 
 		public void UpdateOrder(Order order)
