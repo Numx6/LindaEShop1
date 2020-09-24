@@ -311,7 +311,7 @@ namespace LindaEShop.Core.Services
 
 		public List<ProductGroup> GetAllproductGroups()
 		{
-			return _context.ProductGroups.Where(t=>t.groupType==GroupType.Main).ToList();
+			return _context.ProductGroups.ToList();
 		}
 
 		public List<SelectListItem> GetAllProductGroupsSelectList()

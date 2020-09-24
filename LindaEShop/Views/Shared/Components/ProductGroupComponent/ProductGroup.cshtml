@@ -2,15 +2,23 @@
 
 
 
-<li class="active" >
+<li class="active">
 	<a href="/">صفحه اصلی</a>
 </li>
 
-@foreach (var item in Model)
+@foreach (var item in Model.Where(i => i.ParentId == null))
 {
-
 	<li>
-		<a href="/Product?selectedGroup=@item.Id">@item.Title</a>
+		<a href="/Product?selectedGroup=@item.Id">@item.Title </a>
+		@if (Model.Any(g => g.ParentId == item.Id))
+		{
+			<ul class="submenu">
+				@foreach (var subItem in Model.Where(i => i.ParentId == item.Id))
+				{
+					<li><a href="/Product?selectedGroup=@subItem.Id">@subItem.Title</a></li>
+				}
+			</ul>
+		}
 	</li>
 }
 

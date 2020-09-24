@@ -18,7 +18,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="filter-shop bottom_68 clearfix">
-					<span>صفحه @pageId از @pageCount صفحه</span>
+					<span>صفحه @pageId از @(pageCount+1) صفحه</span>
 					<ul class="flat-filter-search">
 						<li>
 							<a href="#" class="show-filter">فیلترها</a>
@@ -109,10 +109,13 @@
 							<ul class="flat-pagination">
 								@{
 									int pageIdInt = Convert.ToInt32(pageId);
+									<li><a class="@((j==pageIdInt)?"active-paging-li":"")" href="/Product?pageId=1&filter=@filter&orderBy=@orderBy&startPrice=@startPrice&endPrice=@endPrice&selectedGroup=@selectedGroup">@j</a></li>
+
 									for (int i = 0; i < pageCount; i++)
 									{
-										<li><a class="@((j==pageIdInt)?"active-paging-li":"")" href="/Product?pageId=@j&filter=@filter&orderBy=@orderBy&startPrice=@startPrice&endPrice=@endPrice&selectedGroup=@selectedGroup">@j</a></li>
 										j++;
+										<li><a class="@((j==pageIdInt)?"active-paging-li":"")" href="/Product?pageId=@j&filter=@filter&orderBy=@orderBy&startPrice=@startPrice&endPrice=@endPrice&selectedGroup=@selectedGroup">@j</a></li>
+
 									}
 								}
 							</ul>
