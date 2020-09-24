@@ -247,7 +247,7 @@ namespace LindaEShop.Core.Services
 			{
 				take = 4;
 			}
-			IQueryable<Product> result = _context.Products;
+			IQueryable<Product> result = _context.Products.Where(a=>a.IsActive==true);
 			if (!string.IsNullOrEmpty(filter))
 			{
 				result = result.Where(c => c.Name.Contains(filter) || c.ProductCode.Contains(filter));

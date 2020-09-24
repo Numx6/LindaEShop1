@@ -119,10 +119,29 @@
 											<span class="dec quantity-button">-</span>
 										</div>
 										<span asp-validation-for="quantityNumber" class="colorSpanValid"></span>
-										<div class="add-to-cart">
 
-											<input type="submit" class="btn btn-lg colorBtn" value="افزودن به سبدخرید" />
-										</div>
+										@if (Model.Product.IsActive == true)
+										{
+											if (Model.Product.Count > 0)
+											{
+												<div class="add-to-cart">
+													<input type="submit" class="btn btn-lg colorBtn" value="افزودن به سبدخرید" />
+												</div>
+											}
+											else
+											{
+												<div class="add-to-cart">
+													<input type="button" class="btn btn-lg colorBtn" value="ناموجود" />
+												</div>
+											}
+										}
+										else
+										{
+											<div class="add-to-cart">
+												<input type="button" class="btn btn-lg colorBtn" value="محصول غیر فعال می باشد" />
+											</div>
+										}
+
 									</div>
 								</form>
 								<ul class="flat-socials margin-top-46">
@@ -248,7 +267,6 @@
 
 					<div class="product-content product-fourcolumn clearfix">
 						<ul class="product style2">
-
 						</ul><!-- /.product -->
 					</div><!-- /.product-content -->
 				</div>

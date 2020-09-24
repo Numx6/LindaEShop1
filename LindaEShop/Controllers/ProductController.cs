@@ -65,6 +65,16 @@ namespace LindaEShop.Controllers
 
 			if (ModelState.IsValid)
 			{
+				if (showProduct.Product.IsActive == false)
+				{
+					ModelState.AddModelError("quantityNumber", "محصول غیر فعال می باشد");
+					return View(showProduct);
+				}
+				if (showProduct.Product.Count <= 0)
+				{
+					ModelState.AddModelError("quantityNumber", "موجود نمی باشد");
+					return View(showProduct);
+				}
 				if (showProduct.SizeId == 0)
 				{
 					ModelState.AddModelError("SizeId", "انتخاب سایز اجباری است !");
