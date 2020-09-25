@@ -54,6 +54,7 @@ namespace LindaEShop.Controllers
 				_userService.AddUser(user);
 				Sms.SendSms(register.Number, "فروشگاه اینترنتی لیندا . ثبت نام شما با موفقیت انجام شد .");
 				ViewBag.register = "ok";
+
 				return Redirect("/");
 			}
 			return View(register);
@@ -63,6 +64,7 @@ namespace LindaEShop.Controllers
 		public IActionResult LogIn(string ReturnUrl = "/")
 		{
 			ViewData["ReturnUrl"] = ReturnUrl;
+
 			return View();
 		}
 
@@ -115,6 +117,7 @@ namespace LindaEShop.Controllers
 		public IActionResult LogOut()
 		{
 			HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
 			return Redirect("/LogIn");
 		}
 

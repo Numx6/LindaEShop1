@@ -18,7 +18,6 @@ namespace TopLearn.Web.Areas.UserPanel.Controllers
 {
 	[Area("UserPanel")]
 	[Authorize]
-	//[PermissionChecker(1)]
 	public class HomeController : Controller
 	{
 		private IOrder _orderService;
@@ -41,8 +40,8 @@ namespace TopLearn.Web.Areas.UserPanel.Controllers
 
 		public IActionResult ContinueTheBuyingProcess(int id) //---id = orderId
 		{
-
-			ViewData["UserAddress"] = _userService.GetAllUserAddress();
+			string userNumber = User.FindFirst(ClaimTypes.Email)?.Value;
+			ViewData["UserAddress"] = _userService.GetAllUserAddress(userNumber);
 
 			return View(new ContinueTheuyingProcessViewModel
 			{
@@ -53,7 +52,8 @@ namespace TopLearn.Web.Areas.UserPanel.Controllers
 		[HttpPost]
 		public IActionResult ContinueTheBuyingProcess(ContinueTheuyingProcessViewModel continueTheuying) //---id = orderId
 		{
-			ViewData["UserAddress"] = _userService.GetAllUserAddress();
+			string userNumber = User.FindFirst(ClaimTypes.Email)?.Value;
+			ViewData["UserAddress"] = _userService.GetAllUserAddress(userNumber);
 
 			if (!ModelState.IsValid || continueTheuying.BankPort == 0)
 			{

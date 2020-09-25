@@ -38,7 +38,7 @@ namespace LindaEShop.Core.Services.Interfaces
 		#endregion
 
 		public int AddUserAddress(UserAddress userAddress,string userName);
-		public List<UserAddress> GetAllUserAddress();
+		public List<UserAddress> GetAllUserAddress(string userName);
 
 	}
 }

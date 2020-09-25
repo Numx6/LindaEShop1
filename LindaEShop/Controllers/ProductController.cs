@@ -37,11 +37,12 @@ namespace LindaEShop.Controllers
 		public IActionResult ShowProduct(int id)
 		{
 			var product = _productService.GetProductForShow(id);
-			product.Visit++;
-			_productService.EditProduct(product);
 
 			if (product != null)
 			{
+				product.Visit++;
+				_productService.EditProduct(product);
+
 				var showProduct = new BuyProductViewModel()
 				{
 					Product = product

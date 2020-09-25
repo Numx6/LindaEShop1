@@ -88,9 +88,11 @@ namespace LindaEShop.Core.Services
 			return userAddress.UserId;
 		}
 
-		public List<UserAddress> GetAllUserAddress()
+		public List<UserAddress> GetAllUserAddress(string userName)
 		{
-			return _context.UserAddresses.OrderByDescending(c => c.CreatDate).ToList();
+			var userId = GetUserByNumber(userName.Trim()).UserId;
+
+			return _context.UserAddresses.Where(u=>u.UserId==userId).OrderByDescending(c => c.CreatDate).ToList();
 		}
 	}
 }
