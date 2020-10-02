@@ -16,7 +16,12 @@
 @import url("../rev-slider/css/layers.css");
 @import url("../rev-slider/css/navigation.css");
 @import url("https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,500,600,700|");
-
+@font-face {
+	font-family: 'iran';
+	src: url('../fonts/iran.eot?#') format('eot'), /* IE6–8 */
+	url('../fonts/iran.woff') format('woff'), /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+	url('../fonts/iran.ttf') format('truetype'); /* Saf3—5, Chrome4+, FF3.5, Opera 10+ */
+}
 /**
   *	Reset
   *	Repeatable Patterns
