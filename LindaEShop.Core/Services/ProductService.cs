@@ -45,7 +45,7 @@ namespace LindaEShop.Core.Services
 				ImageConvertor imgResizer = new ImageConvertor();
 				string thumbPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/ProductGallary/thumb", productGallery.ImageName);
 
-				imgResizer.Image_resize(imagePath, thumbPath, 250);
+				imgResizer.Image_resize(imagePath, thumbPath, 200);
 			}
 			_context.productGalleries.Add(productGallery);
 			_context.SaveChanges();
@@ -75,7 +75,7 @@ namespace LindaEShop.Core.Services
 				ImageConvertor imgResizer = new ImageConvertor();
 				string thumbPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/Product/thumb", product.ImageName);
 
-				imgResizer.Image_resize(imagePath, thumbPath, 250);
+				imgResizer.Image_resize(imagePath, thumbPath, 330);
 			}
 
 			_context.Add(product);
@@ -165,7 +165,7 @@ namespace LindaEShop.Core.Services
 				ImageConvertor imgResizer = new ImageConvertor();
 				string thumbPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/Product/thumb", product.ImageName);
 
-				imgResizer.Image_resize(imagePath, thumbPath, 250);
+				imgResizer.Image_resize(imagePath, thumbPath, 330);
 			}
 			_context.Products.Update(product);
 

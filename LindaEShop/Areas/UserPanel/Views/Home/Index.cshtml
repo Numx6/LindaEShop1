@@ -55,7 +55,8 @@
 											<td>@((item.Count * item.Price).ToString("#,0"))</td>
 										</tr>
 									}
-									<tr>
+
+									<tr class="hidden-md-down" >
 										<td colspan="5" class="text-left">هزینه پست</td>
 										<td>
 											@if (sumPrice > 250000)
@@ -68,7 +69,21 @@
 											}
 										</td>
 									</tr>
-									<tr>
+									<tr class="hidden-md-up">
+										<td colspan="2" class="text-left">هزینه پست</td>
+										<td colspan="4">
+											@if (sumPrice > 250000)
+											{
+												<p>رایگان</p>
+											}
+											else
+											{
+												<p>15,000 تومان</p>
+											}
+										</td>
+									</tr>
+
+									<tr class="hidden-md-down">
 										<td colspan="5" class="text-left">جمع کل</td>
 										<td>
 											<h3>
@@ -83,9 +98,30 @@
 											</h3>
 										</td>
 									</tr>
-									<tr>
+									<tr class="hidden-md-up">
+										<td colspan="2" class="text-left">جمع کل</td>
+										<td colspan="4">
+											<h3>
+												@if (sumPrice > 250000)
+												{
+													<span>@sumPrice.ToString("#,0")</span>
+												}
+												else
+												{
+													<span>@(sumPrice+15000)</span>
+												}
+											</h3>
+										</td>
+									</tr>
+
+									<tr class="hidden-md-down">
 										<td colspan="5" class="text-left"></td>
 										<td colspan="5">
+											<a class="btn btn-success btn-block" href="UserPanel/Home/ContinueTheBuyingProcess/@Model.OrderId"> ادامه فرایند خرید</a>
+										</td>
+									</tr>
+									<tr class="hidden-md-up">
+										<td colspan="6">
 											<a class="btn btn-success btn-block" href="UserPanel/Home/ContinueTheBuyingProcess/@Model.OrderId"> ادامه فرایند خرید</a>
 										</td>
 									</tr>
