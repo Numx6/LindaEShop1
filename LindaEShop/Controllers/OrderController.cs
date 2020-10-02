@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using LindaEShop.Core;
 using LindaEShop.Core.DTOs;
 using LindaEShop.Core.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -24,6 +25,7 @@ namespace LindaEShop.Controllers
 		{
 			string userNumber = User.FindFirst(ClaimTypes.Email)?.Value;
 			_orderService.AddOrder(productId, userNumber, sizeId, colorId, quantityNumber);
+			Sms.SendSms("09372796350", "افزودن به سبد خرید ."+ userNumber);
 
 			return Redirect("/UserPanel");
 		}

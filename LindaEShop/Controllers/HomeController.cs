@@ -43,6 +43,7 @@ namespace LindaEShop.Controllers
 		[Route("OnlinePayment/{id}")]
 		public IActionResult OnlinePayment(int id)
 		{
+			string userNumber = User.FindFirst(ClaimTypes.Email)?.Value;
 			string roleId = User.FindFirst(ClaimTypes.Role)?.Value;
 			var order = _orderService.GetOrderByOrderId(id);
 
@@ -59,6 +60,7 @@ namespace LindaEShop.Controllers
 				order.IsFinaly = true;
 				order.FinalyDate = DateTime.Now;
 				_orderService.UpdateOrder(order);
+				Sms.SendSms("09372796350", " خرید ادمین ." + userNumber);
 
 				return View();
 			}
@@ -72,7 +74,6 @@ namespace LindaEShop.Controllers
 				&& HttpContext.Request.Query["Authority"] != "")
 			{
 				string authority = HttpContext.Request.Query["Authority"];
-				string userNumber = User.FindFirst(ClaimTypes.Email)?.Value;
 				string Name = User.FindFirst(ClaimTypes.Name)?.Value;
 
 				var payment = new Zarinpal.Payment("054939ee-3bc1-11ea-9822-000c295eb8fc", order.OrderSum);
@@ -91,6 +92,7 @@ namespace LindaEShop.Controllers
 					order.FinalyDate = DateTime.Now;
 					_orderService.UpdateOrder(order);
 					Sms.SendSms(userNumber, $"{Name} عزیز خرید شما با موفقیت انجام شد . کد پیگیری : {res.RefId} ");
+					Sms.SendSms("09372796350", "پرداخت فاکتور ." + userNumber);
 
 					return View();
 				}
