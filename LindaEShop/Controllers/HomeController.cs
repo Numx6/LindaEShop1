@@ -68,9 +68,12 @@ namespace LindaEShop.Controllers
 					order.IsFinaly = true;
 					order.FinalyDate = DateTime.Now;
 					_orderService.UpdateOrder(order);
-
 					Sms.SendSms(userNumber, $"{Name} عزیز خرید شما با موفقیت انجام شد . کد پیگیری : {res.RefId} ");
+				
+					return View();
 				}
+
+				return View();
 			}
 
 			return View();
