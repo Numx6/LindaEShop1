@@ -43,13 +43,35 @@ namespace LindaEShop.Controllers
 		[Route("OnlinePayment/{id}")]
 		public IActionResult OnlinePayment(int id)
 		{
+			string roleId = User.FindFirst(ClaimTypes.Role)?.Value;
+			var order = _orderService.GetOrderByOrderId(id);
+
+			#region admin pyment
+
+			if (roleId == "1")
+			{
+				foreach (var item in order.OrderDetails)
+				{
+					_productService.UpdateCountProduct(item.ProductId, item.Count);
+				}
+
+				ViewBag.IsSuccess = true;
+				order.IsFinaly = true;
+				order.FinalyDate = DateTime.Now;
+				_orderService.UpdateOrder(order);
+
+				return View();
+			}
+
+			#endregion
+
+			#region user payment
+
 			if (HttpContext.Request.Query["Status"] != "" &&
 				HttpContext.Request.Query["Status"].ToString().ToLower() == "ok"
 				&& HttpContext.Request.Query["Authority"] != "")
 			{
 				string authority = HttpContext.Request.Query["Authority"];
-
-				var order = _orderService.GetOrderByOrderId(id);
 				string userNumber = User.FindFirst(ClaimTypes.Email)?.Value;
 				string Name = User.FindFirst(ClaimTypes.Name)?.Value;
 
@@ -69,12 +91,14 @@ namespace LindaEShop.Controllers
 					order.FinalyDate = DateTime.Now;
 					_orderService.UpdateOrder(order);
 					Sms.SendSms(userNumber, $"{Name} عزیز خرید شما با موفقیت انجام شد . کد پیگیری : {res.RefId} ");
-				
+
 					return View();
 				}
 
 				return View();
 			}
+
+			#endregion
 
 			return View();
 		}

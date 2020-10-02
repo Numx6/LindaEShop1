@@ -101,11 +101,21 @@ namespace TopLearn.Web.Areas.UserPanel.Controllers
 		{
 			_orderService.AddAddressToOrder(orderId, addressId);
 			Order order = _orderService.GetOrderByOrderId(orderId);
-
+			string roleId= User.FindFirst(ClaimTypes.Role)?.Value;
+			
 			if (order.OrderDetails == null)
 			{
 				return Redirect("/");
 			}
+
+			#region admin pyment
+
+			if (roleId == "1")
+			{
+				return RedirectToAction("OnlinePayment", "Home", new { area = "" , id =orderId});
+			}
+
+			#endregion
 
 			#region onlin payment
 
@@ -120,6 +130,7 @@ namespace TopLearn.Web.Areas.UserPanel.Controllers
 			return NotFound();
 
 			#endregion
+
 		}
 
 		public IActionResult DeleteDetileInvoice(int OrderId,int DetailId)
