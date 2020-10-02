@@ -40,5 +40,8 @@ namespace LindaEShop.Core.Services.Interfaces
 		public int AddUserAddress(UserAddress userAddress,string userName);
 		public List<UserAddress> GetAllUserAddress(string userName);
 
+		public List<SendSmsAdmin> GetSendSmsAdmins();
+		public void AddSendSms(SendSmsAdminViewModel sendSms);
+
 	}
 }

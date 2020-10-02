@@ -34,7 +34,7 @@ namespace LindaEShop.Core.Services
 		public User LoginUser(LogInViewModel logIn)
 		{
 			logIn.Password = PasswordHelper.EncodePasswordMd5(logIn.Password);
-			return _context.Users.Include(r=>r.Role).SingleOrDefault(u => u.Number == logIn.Number.Trim() && u.Password == logIn.Password);	
+			return _context.Users.Include(r => r.Role).SingleOrDefault(u => u.Number == logIn.Number.Trim() && u.Password == logIn.Password);
 		}
 
 		public bool IsExistUserNumber(string number)
@@ -62,20 +62,21 @@ namespace LindaEShop.Core.Services
 
 		public int GetUserIdByUserName(string userName)
 		{
-			return _context.Users.FirstOrDefault(u=>u.Number==userName).UserId;
+			return _context.Users.FirstOrDefault(u => u.Number == userName).UserId;
 		}
 
 		public void AddSmsChimp(string number)
 		{
-			_context.SmsChimps.Add(new SmsChimp() { 
-			 Number=number.Trim(),
-			  CreatDate=DateTime.Now
+			_context.SmsChimps.Add(new SmsChimp()
+			{
+				Number = number.Trim(),
+				CreatDate = DateTime.Now
 			});
 
 			_context.SaveChanges();
 		}
 
-		public int AddUserAddress(UserAddress userAddress,string userName)
+		public int AddUserAddress(UserAddress userAddress, string userName)
 		{
 			int userId = GetUserIdByUserName(userName);
 
@@ -92,7 +93,24 @@ namespace LindaEShop.Core.Services
 		{
 			var userId = GetUserByNumber(userName.Trim()).UserId;
 
-			return _context.UserAddresses.Where(u=>u.UserId==userId).OrderByDescending(c => c.CreatDate).ToList();
+			return _context.UserAddresses.Where(u => u.UserId == userId).OrderByDescending(c => c.CreatDate).ToList();
+		}
+
+		public List<SendSmsAdmin> GetSendSmsAdmins()
+		{
+			return _context.SendSmsAdmins.ToList();
+		}
+
+		public void AddSendSms(SendSmsAdminViewModel sendSms)
+		{
+
+			_context.SendSmsAdmins.Add(new SendSmsAdmin()
+			{
+				Number = sendSms.Number.Trim(),
+				Text = sendSms.Text.Trim(),
+				CreatDate = DateTime.Now
+			});
+			_context.SaveChanges();
 		}
 	}
 }

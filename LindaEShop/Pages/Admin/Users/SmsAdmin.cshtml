@@ -1,0 +1,33 @@
+﻿@page
+@model LindaEShop.Pages.Admin.Users.SmsAdminModel
+@{
+	ViewData["Title"] = "پیام های ارسال شده";
+}
+	<div class="col-sm-12">
+		<section class="panel">
+			<header class="panel-heading">
+				<a asp-page="SendSmsAdmin" class="btn btn-outline btn-success">ارسال پیام جدید</a>
+			</header>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<td>Id</td>
+						<th>زمان</th>
+						<th>شماره</th>
+						<th>متن</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var item in Model.sendSms)
+					{
+						<tr>
+							<td>@item.Id</td>
+							<td>@item.CreatDate</td>
+							<td>@item.Number</td>
+							<td>@item.Text</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</section>
+	</div>

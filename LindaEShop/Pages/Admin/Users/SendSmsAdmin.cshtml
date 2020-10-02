@@ -1,0 +1,40 @@
+﻿@page
+@model LindaEShop.Pages.Admin.Users.SendSmsAdminModel
+@{
+	ViewData["Title"] = "ارسال sms";
+	var Succcess =(int)ViewData["IsSuccess"];
+}
+	<div class="row">
+		<form method="post" enctype="multipart/form-data">
+			<div class="col-md-8 col-lg-offset-2">
+				@if (Succcess == 1)
+				{
+					<div class="alert alert-success">
+						<p>پیام ارسال شد</p>
+					</div>
+				}
+				else if (Succcess == 2)
+				{
+					<div class="alert alert-danger">
+						<p>پیام ارسال نشد . دوباره امتحان کنید</p>
+					</div>
+				}
+				<div class="panel panel-primary">
+					<div class="panel-heading">افزودن محصول</div>
+					<div class="panel-body">
+						<div class="form-group">
+							<label asp-for="sendSms.Number"></label>
+							<input type="text" asp-for="sendSms.Number" class="form-control">
+							<span asp-validation-for="sendSms.Number"></span>
+						</div>
+						<div class="form-group">
+							<label asp-for="sendSms.Text"></label>
+							<textarea rows="3" asp-for="sendSms.Text" class="form-control"></textarea>
+							<span asp-validation-for="sendSms.Text"></span>
+						</div>
+						<input type="submit" value="ارسال پیام" class="btn btn-success" />
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
