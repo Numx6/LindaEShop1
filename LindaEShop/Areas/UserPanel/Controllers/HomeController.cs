@@ -122,9 +122,10 @@ namespace TopLearn.Web.Areas.UserPanel.Controllers
 			#endregion
 		}
 
-		public IActionResult DeleteDetileInvoice(int id)
+		public IActionResult DeleteDetileInvoice(int OrderId,int DetailId)
 		{
-			_orderService.DeleteDetileInvoice(id);
+			_orderService.DeleteDetileInvoice(DetailId);
+			_orderService.UpdatePriceOrder(OrderId);
 
 			return Redirect("/UserPanel");
 		}
