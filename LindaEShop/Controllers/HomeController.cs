@@ -106,8 +106,11 @@ namespace LindaEShop.Controllers
 		[HttpPost]
 		public IActionResult SmsChimp(string number)
 		{
-			number = number.Trim();
-			_userService.AddSmsChimp(number);
+			if (!string.IsNullOrEmpty(number))
+			{
+				number = number.Trim();
+				_userService.AddSmsChimp(number);
+			}
 
 			return RedirectToAction("Index");
 		}
