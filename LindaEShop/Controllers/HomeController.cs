@@ -76,7 +76,7 @@ namespace LindaEShop.Controllers
 				string authority = HttpContext.Request.Query["Authority"];
 				string Name = User.FindFirst(ClaimTypes.Name)?.Value;
 
-				var payment = new Zarinpal.Payment("054939ee-3bc1-11ea-9822-000c295eb8fc", order.OrderSum);
+				var payment = new Zarinpal.Payment("054939ee-3bc1-11ea-9822-000c295eb8fc", order.OrderSum + 15000);
 				var res = payment.Verification(authority).Result;
 
 				if (res.Status == 100)
